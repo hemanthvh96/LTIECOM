@@ -2,11 +2,16 @@ mat-toolbar {
     display: flex;
     flex-direction: row;
     align-items: center;
+
 }
 
 a {
     color: inherit;
-    margin: auto 10px;
+}
+
+header a:hover {
+    background-color: #0000001a;
+    color: #ffa500;
 }
 
 .flex-spacer {
