@@ -1,0 +1,38 @@
+<div class="signup-component">
+    <div class="form-wrapper">
+        <form class="signup-form" #signupForm="ngForm" (ngSubmit)="signupUser(signupForm)" novalidate>
+            <h2 class="form-header">Hi, Create New Account</h2>
+            <mat-form-field appearance="outline" class="mat-signup-form-field">
+                <mat-label>First Name</mat-label>
+                <input type="text" matInput ngModel name="firstname" #firstname="ngModel" required>
+                <mat-error *ngIf="firstname.errors?.['required']">First Name is required</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="mat-signup-form-field">
+                <mat-label>Last Name</mat-label>
+                <input type="text" matInput ngModel name="lastname" #lastname="ngModel" required>
+                <mat-error *ngIf="lastname.errors?.['required']">Last Name is required</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="mat-signup-form-field">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput ngModel name="email" #email="ngModel" required email>
+                <mat-error *ngIf="email.errors?.['required']">Email is required</mat-error>
+                <mat-error *ngIf="email.errors?.['email']">Email needs to be proper</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="mat-signup-form-field">
+                <mat-label>Password</mat-label>
+                <input [type]="hide ? 'password' : 'text'" matInput ngModel name="password" #password="ngModel"
+                    required>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="password.errors?.['required']">Password is required</mat-error>
+            </mat-form-field>
+            <div class="submit">
+                <button type="submit" mat-raised-button color="primary" [disabled]="!signupForm.form.valid">Create
+                    Account</button>
+            </div>
+            <p class="checkLogin">Already have an account ? <a href="/">Login</a></p>
+        </form>
+    </div>
+</div>

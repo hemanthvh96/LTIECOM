@@ -1,0 +1,45 @@
+.signup-component {
+    padding: 3rem;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 30px;
+    background-image: linear-gradient(to right, #2361dc, #f01541);
+    background-clip: text;
+    color: transparent;
+}
+
+.signup-form {
+    width: 30%;
+    margin: 0 auto;
+    border: 1px solid #e3e3e3;
+    padding: 3rem;
+    background-color: rgb(252, 247, 247);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.mat-signup-form-field {
+    width: 100%;
+}
+
+.submit {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+::ng-deep .mat-input-element {
+    font-size: 16px !important;
+}
+
+::ng-deep .mat-form-field-label {
+    font-size: 16px !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    font-size: 16px !important;
+}
+
+.checkLogin {
+    text-align: center;
+}
