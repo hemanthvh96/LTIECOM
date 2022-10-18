@@ -11,3 +11,16 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     box-sizing: border-box;
 }
+
+.mat-ink-bar{
+    display: none;
+}
+
+.mat-tab-label {
+    background-color: rgb(252, 247, 247) !important;
+}
+
+.mat-tab-label-active{
+    color: rgb(32, 0, 128);
+    background-color: pink !important;
+}
