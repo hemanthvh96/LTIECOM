@@ -1,37 +1,27 @@
 .container {   
     padding: 25px;   
-    background-color: lightblue;  
+    background-color: white;  
 } 
 
-button {   
-    background-color: #4c4caf;   
-    width: 100%;  
-     color: orange;   
-     padding: 15px;   
-     margin: 10px 0px;   
-     border: none;   
-     cursor: pointer;   
-}   
+.form-header {
+    text-align: center;
+    margin-bottom: 30px;
+    background-image: linear-gradient(to right, #2361dc, #f01541);
+    background-clip: text;
+    color: transparent;
+}
 
-/* input[type=text], input[type=password] {   
-     width: 100%;   
-     margin: 8px 0;  
-     padding: 12px 20px;   
-     display: inline-block;   
-     border: 2px solid green;   
-     box-sizing: border-box;   
- }   */
+button {   
+    background-color: #4c4caf !important;   
+    width: 100%;  
+    color: orange !important;   
+    padding: 15px;   
+    margin: 10px 0px;   
+    border: none;   
+    cursor: pointer !important;   
+    height: 60px;
+}   
 
  mat-form-field {
     display: block;
-  }
-
-  
-/* input[type=text] {
-    width: 100% !important;
-    margin: 8px 0;
-    padding: 12px 20px;
-    display: inline-block;
-    border: 2px solid green;
-    box-sizing: border-box;
-} */
+ }
