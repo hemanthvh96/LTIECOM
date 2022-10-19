@@ -1,6 +1,6 @@
 <div class="center">
-    <mat-tab-group mat-align-tabs="center">
-     <mat-tab label="Sign In"><app-sign-in></app-sign-in></mat-tab>
+    <mat-tab-group mat-align-tabs="center" [selectedIndex]="selectedIndex">
+     <mat-tab label="Sign In"><app-sign-in (selectedIndex)="selectIndex($event)"></app-sign-in></mat-tab>
      <mat-tab label="Sign Up"><app-signup></app-signup></mat-tab>
     </mat-tab-group>
    </div>

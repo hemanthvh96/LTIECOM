@@ -1,0 +1,38 @@
+.wishlist-wrapper {
+    position: absolute;
+    left: 10%;
+    top: 8%;
+    width: 100%;
+}
+
+button {   
+     background-color: #2f2fe1;   
+     width: 10%;  
+     color: white;   
+     padding: 15px;   
+     margin: 10px 10px;   
+     border: none;   
+     cursor: pointer;   
+     margin-right: 43px;
+}   
+
+table {
+    width: 74%;
+    margin-top: 35px;
+}
+
+.table-header{
+    background-color: #912fe1;
+}
+
+.header {
+    margin-top: 30px;
+    margin-bottom: 0px;
+}
+
+.dropdown{
+    width: 25%;
+    margin-right: 489px;
+}
+
+

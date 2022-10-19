@@ -7,11 +7,12 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
     declarations: [],
     exports: [MatToolbarModule, MatButtonModule, MatInputModule, MatIconModule, MatTabsModule, 
-             MatFormFieldModule, MatSelectModule, MatTableModule,]
+             MatFormFieldModule, MatSelectModule, MatTableModule, MatDialogModule]
 })
 
 export class MaterialModule {

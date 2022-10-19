@@ -1,0 +1,17 @@
+<div class="header">
+    <h2 mat-dialog-title>Add New List</h2>
+    <mat-icon class="cross" (click)="close()">cancel</mat-icon>
+  </div>
+  <hr class="divider">
+  
+  <mat-dialog-content class="content">
+    <p>Enter name</p>
+    <mat-form-field appearance="outline"> 
+      <input type="text" matInput ngModel name="wishlistName" [(ngModel)]="wishlistName">
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+      <button mat-raised-button class="close-button" (click)="close()">Cancel</button>
+      <button type="submit" mat-raised-button color="primary" [disabled]="!wishlistName" (click)="save()">Save</button>
+  </mat-dialog-actions>
+  

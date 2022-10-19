@@ -1,0 +1,28 @@
+.close-button{
+    margin-right: 32px;
+    margin-left: 145px;
+}
+
+.cross{
+    float: right;
+    margin-top:-45px;
+    cursor: pointer;
+}
+
+.divider{
+    margin-top: -12px;
+    margin-bottom: 24px;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid;
+}
+
+.text{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.content{
+    text-align: center;
+}

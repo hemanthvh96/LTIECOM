@@ -1,0 +1,13 @@
+<div class="header">
+  <h2 mat-dialog-title>Delete List?</h2>
+  <mat-icon class="cross" (click)="close()">cancel</mat-icon>
+</div>
+<hr class="divider">
+
+<mat-dialog-content>
+  <p class="text">Are you sure?</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button class="mat-raised-button close-button" (click)="close()">Cancel</button>
+    <button class="mat-raised-button mat-primary" (click)="save()">Yes</button>
+</mat-dialog-actions>
