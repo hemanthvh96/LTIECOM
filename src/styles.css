@@ -4,6 +4,7 @@
 
 html, body {
     height: 100%;
+    box-sizing: border-box;
 }
 
 body {
@@ -12,7 +13,7 @@ body {
     box-sizing: border-box;
 }
 
-.mat-ink-bar{
+.mat-ink-bar {
     display: none;
 }
 
@@ -20,7 +21,7 @@ body {
     background-color: rgb(252, 247, 247) !important;
 }
 
-.mat-tab-label-active{
+.mat-tab-label-active {
     color: rgb(32, 0, 128);
     background-color: pink !important;
 }

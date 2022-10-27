@@ -1,0 +1,68 @@
+<section class="products">
+    <div class="product-filters">
+        <div class="filters-header">
+            <h2 class="headerText">Filters</h2>
+            <a mat-button class="clear">Clear All</a>
+        </div>
+        <div class="filters-categories">
+            <p>CATEGORIES</p>
+            <div class="categories-list">
+                <a mat-button *ngFor="let category of categories | sortBy:''">{{category}}</a>
+            </div>
+        </div>
+        <div class="filters-ratings">
+            <p>RATINGS</p>
+            <div class="ratings-list">
+                <ng-container *ngFor="let ratings of ratingsArr">
+                    <mat-checkbox color="primary">{{ratings.rating}}&#9733; & above</mat-checkbox>
+                </ng-container>
+            </div>
+        </div>
+        <div class="filters-price">
+            <p>PRICE</p>
+            <mat-slider color="primary" #filterPrice (change)="updateFilterPrice($event)" step="10" max="100000">
+            </mat-slider>
+            <p>Min - 0 and Max - {{filterPrice.value}}</p>
+        </div>
+    </div>
+    <div class="products-list">
+        <ng-container *ngFor="let product of products">
+            <div class="products-details">
+                <div class="product-image">
+                    <mat-icon fontIcon="favorite_border favorite border icon" [matMenuTriggerFor]="menu"></mat-icon>
+                    <mat-menu #menu="matMenu">
+                        <ng-container *ngFor="let name of wishlist; let idx = index">
+                            <div class="wishlist-wrapper">
+                                <div class="wishlist-name">
+                                    <p>{{name}}</p>
+                                </div>
+                                <div class="wishlist-checkbox">
+                                    <mat-checkbox color="primary">
+                                    </mat-checkbox>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </mat-menu>
+                    <!-- <div class="product-image-wrapper"> -->
+                    <img [src]="product.image">
+                    <!-- </div> -->
+                    <!-- <mat-icon fontIcon="favorite"></mat-icon> -->
+                </div>
+                <div class="product-detail">
+                    <h2>{{product.title}}</h2>
+                    <div class="price-wrapper">
+                        <p class="price">&#x20b9; {{product.price}}</p>
+                        <span
+                            [ngClass]="product.rating.rate > 4 ? 'rating rating-high': 'rating rating-low'">{{product.rating.rate}}
+                            &#9733;
+                        </span>
+                    </div>
+                    <p>{{product.description}}</p>
+                    <button mat-button class="cart">Add To Cart</button>
+                    <button mat-button class="buy-now">Buy Now</button>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+
+</section>
