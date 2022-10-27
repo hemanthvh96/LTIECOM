@@ -8,11 +8,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app.routing.module';
 
 import { SortPipe } from './shared/sort.pipe';
+import { SignInComponent } from './sign-in/sign-in.component';
+//import { WishlistComponent } from './wishlist/wishlist.component';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { SignupComponent } from './signup/signup.component';
 import { ProductsComponent } from './products/products.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { ProductsComponent } from './products/products.component';
     HeaderComponent,
     SignupComponent,
     ProductsComponent,
-    SortPipe
+    SortPipe,
+    SignInComponent,
+    //WishlistComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

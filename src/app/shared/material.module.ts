@@ -6,11 +6,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
 
 
 @NgModule({
     declarations: [],
-    exports: [MatToolbarModule, MatButtonModule, MatInputModule, MatIconModule, MatCheckboxModule, MatSliderModule, MatMenuModule]
+    exports: [MatToolbarModule, MatButtonModule, MatInputModule, MatIconModule, MatTabsModule,
+        MatFormFieldModule, MatSelectModule, MatTableModule, MatCheckboxModule, MatSliderModule, MatMenuModule]
 })
 
 export class MaterialModule {
