@@ -13,6 +13,11 @@
                 <mat-error *ngIf="lastname.errors?.['required']">Last Name is required</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="mat-signup-form-field">
+                <mat-label>Username</mat-label>
+                <input type="text" matInput ngModel name="username" #username="ngModel" required>
+                <mat-error *ngIf="lastname.errors?.['required']">Last Name is required</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="mat-signup-form-field">
                 <mat-label>Email</mat-label>
                 <input type="email" matInput ngModel name="email" #email="ngModel" required email>
                 <mat-error *ngIf="email.errors?.['required']">Email is required</mat-error>
