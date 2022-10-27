@@ -1,0 +1,160 @@
+.products {
+    display: flex;
+    background-color: #f1f3f6;
+    padding: 8px;
+}
+
+.product-filters {
+    flex: 0 0 280px;
+    flex-basis: 280px;
+    background: #fff;
+    box-shadow: 0 1px 8px 0 rgb(0 0 0 / 6%);
+    margin-right: 10px;
+    padding: 0.5rem;
+    align-self: flex-start;
+}
+
+.product-filters>div {
+    padding: 16px;
+}
+
+.filters-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.filters-header .headerText {
+    font-size: 18px;
+}
+
+.filters-header .clear {
+    text-transform: uppercase;
+    color: #2361dc;
+    font-size: 13px;
+    padding: 0;
+}
+
+.filters-categories .categories-list a {
+    text-transform: capitalize;
+    display: block;
+    text-align: left;
+}
+
+.filters-categories .categories-list a:hover {
+    background-color: #d5c7c71a;
+}
+
+.filters-ratings .ratings-list mat-checkbox {
+    display: block;
+    padding: 0.2rem 1rem;
+}
+
+.filters-price mat-slider {
+    width: 90%;
+    margin-left: 14px;
+}
+
+.filters-price p:last-of-type {
+    padding: 0 16px;
+}
+
+
+.products-list {
+    background: #fff;
+    box-shadow: 0 1px 8px 0 rgb(0 0 0 / 6%);
+    flex-grow: 1;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.products-details {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 1rem;
+}
+
+.products-details:not(:first-of-type) {
+    padding-top: 1rem;
+}
+
+.product-image {
+    width: 200px;
+    padding-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.product-image img {
+    width: 60%;
+    object-fit: fill;
+    align-self: center;
+}
+
+.product-image mat-icon {
+    font-size: 18px;
+    align-self: flex-end;
+    cursor: pointer;
+    padding-top: 7px;
+}
+
+.product-detail h2 {
+    font-size: 18px;
+}
+
+.price-wrapper {
+    position: relative;
+}
+
+.product-detail .price {
+    font-size: 22px;
+    font-weight: 600;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.product-detail .rating {
+    font-size: 12px;
+    color: white;
+    padding: 0px 5px;
+    border-radius: 3px;
+    position: absolute;
+    top: 0;
+}
+
+.product-detail .rating-high {
+    background-color: #388e3c;
+}
+
+.product-detail .rating-low {
+    background-color: orange;
+}
+
+.cart {
+    background-color: #ff9f00;
+    margin-right: 1rem;
+    margin-top: 1rem;
+    color: rgb(255, 255, 255);
+}
+
+.buy-now {
+    background-color: rgb(251, 100, 27);
+    width: 105px;
+    color: rgb(255, 255, 255);
+}
+
+::ng-deep .mat-menu-content {
+    padding: 2rem !important;
+}
+
+.wishlist-name {
+    margin-right: 20px
+}
+
+.wishlist-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
