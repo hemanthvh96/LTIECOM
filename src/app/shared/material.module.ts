@@ -10,12 +10,16 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
     declarations: [],
-    exports: [MatToolbarModule, MatButtonModule, MatInputModule, MatIconModule, MatTabsModule,
-        MatFormFieldModule, MatSelectModule, MatTableModule, MatCheckboxModule, MatSliderModule, MatMenuModule]
+    exports: [MatToolbarModule, MatButtonModule, MatInputModule, MatIconModule, MatTabsModule, 
+             MatFormFieldModule, MatSelectModule, MatTableModule, MatDialogModule, MatCardModule,
+             MatPaginatorModule, MatCheckboxModule, MatSliderModule, MatMenuModule]
 })
 
 export class MaterialModule {

@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  selectedIndex: any;
 
-  constructor() { }
+  constructor() {  }
 
   ngOnInit(): void {
+  }
+
+
+  selectIndex(selectedIndex: any){
+     this.selectedIndex = selectedIndex;
   }
 
 }

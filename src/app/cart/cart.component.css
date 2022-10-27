@@ -1,0 +1,117 @@
+.cart-wrapper {
+    /* position: absolute;
+    left: 10%; */
+    margin-left: 30px;
+    top: 15%;
+    width: 100%;
+}
+
+.main {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.first{
+    display: flex !important;
+    float: left;
+    height: 100%;
+    width: 60%;
+    margin-left: 50px;
+}
+
+.second{
+    display: flex !important;
+    float: left;
+    height: 100%;
+    width: 40%;
+}
+
+.buttons {
+   margin-top: 50px;
+}
+
+.shop-button {
+    margin-right: 100px;
+    margin-left: 153px;
+}
+
+table {
+    width: 95%;
+    margin-top: 35px;
+}
+
+.header{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.text-center{
+    text-align: center;
+    margin-left: 51%;
+    width: 100px;
+    margin-top: 20px;
+    background-color: green;
+    color: white;
+    height: 38px;
+    padding-top: 15px;
+}
+
+.card {
+    height: 60vh;
+    margin: 25px;
+    padding: 25px;
+}
+
+.center{
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   text-align: center;
+}
+
+.center img {
+    text-decoration: none;
+    color: inherit;
+    border: none;
+    outline: none;
+    height: 162px;
+    width: 250px;
+    margin: 20px 0px;
+}
+
+.card-title{
+    text-align: center;
+}
+
+.boldText{
+    font-weight: bold;
+}
+
+.second-card {
+    height: 33vh;
+    margin: 25px;
+    padding: 25px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.checkButton{
+    height: 40px;
+    margin-top: 40%;
+    margin-right: 36%;
+    background-color: green;
+}
+
+.totalAmount{
+    font-weight: bold;
+    margin-top: 50px;
+}
+
+.counter{
+    width: 40px;
+}
+
