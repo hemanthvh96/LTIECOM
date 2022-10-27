@@ -16,6 +16,7 @@ import { LoginComponent } from './login/login.component';
 import { DeleteDialogComponent } from './wishlist/delete-dialog/delete-dialog.component';
 import { EditDialogComponent } from './wishlist/edit-dialog/edit-dialog.component';
 import { AddDialogComponent } from './wishlist/add-dialog/add-dialog.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AddDialogComponent } from './wishlist/add-dialog/add-dialog.component';
     LoginComponent,
     DeleteDialogComponent,
     EditDialogComponent,
-    AddDialogComponent
+    AddDialogComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
