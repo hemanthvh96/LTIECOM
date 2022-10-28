@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -10,8 +11,9 @@ import { AuthService } from '../services/auth.service';
 export class SignInComponent implements OnInit {
   userName: any;
   password: any;
+  @Output() selectedIndex = new EventEmitter<string>();
 
-  constructor(private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -21,5 +23,8 @@ export class SignInComponent implements OnInit {
 
     this.authService.signinUser(loginDetails.username, loginDetails.password)
   }
-
+  signUp() {
+    let value = '1'
+    this.selectedIndex.emit(value);
+  }
 }

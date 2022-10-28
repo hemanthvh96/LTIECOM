@@ -18,7 +18,9 @@
         Please provide a valid password
       </mat-error>
     </mat-form-field>
-    <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Login</button>
-    Don't have an account?<a href="/signup"> Sign Up </a>
+    <div class="submit">
+      <button type="submit" mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Login</button>
+    </div>
+    <p class="checkAccount">Don't have an account?<a href="#" (click)="signUp()"> Sign Up </a></p>
   </form>
 </div>

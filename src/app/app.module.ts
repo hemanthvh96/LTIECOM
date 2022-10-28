@@ -9,7 +9,7 @@ import { AppRoutingModule } from './app.routing.module';
 
 import { SortPipe } from './shared/sort.pipe';
 import { SignInComponent } from './sign-in/sign-in.component';
-//import { WishlistComponent } from './wishlist/wishlist.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -17,6 +17,10 @@ import { SignupComponent } from './signup/signup.component';
 import { ProductsComponent } from './products/products.component';
 import { LoginComponent } from './login/login.component';
 import { HttpInterceptorService } from './services/http.interceptor.service';
+import { DeleteDialogComponent } from './wishlist/delete-dialog/delete-dialog.component';
+import { EditDialogComponent } from './wishlist/edit-dialog/edit-dialog.component';
+import { AddDialogComponent } from './wishlist/add-dialog/add-dialog.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -26,8 +30,12 @@ import { HttpInterceptorService } from './services/http.interceptor.service';
     ProductsComponent,
     SortPipe,
     SignInComponent,
-    //WishlistComponent,
-    LoginComponent
+    WishlistComponent,
+    LoginComponent,
+    DeleteDialogComponent,
+    EditDialogComponent,
+    AddDialogComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
