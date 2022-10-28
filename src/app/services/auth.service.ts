@@ -1,6 +1,5 @@
-import { HttpClient, HttpEvent, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 
 export interface User {
     firstName: string,
@@ -17,7 +16,7 @@ export interface User {
 
 export class AuthService {
 
-    constructor(private http: HttpClient, private router: Router) { }
+    constructor(private http: HttpClient) { }
 
     user!: User;
 
