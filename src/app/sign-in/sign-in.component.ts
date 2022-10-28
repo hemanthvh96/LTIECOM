@@ -23,6 +23,7 @@ export class SignInComponent implements OnInit {
 
     this.authService.signinUser(loginDetails.username, loginDetails.password)
   }
+  
   signUp() {
     let value = '1'
     this.selectedIndex.emit(value);
