@@ -1,17 +1,19 @@
 <div class="container">  
  <form #loginForm="ngForm">
    <h2 class="form-header">Login</h2>
-    <mat-error *ngIf="false">
+    <!-- <mat-error *ngIf="false">
       The username and password were not recognized
-    </mat-error>
+    </mat-error> -->
     <mat-form-field appearance="outline">
-      <input matInput type="email" placeholder="Email*" name="username" [(ngModel)]="userName" autocomplete="off" #userNameCtrl="ngModel" required email>
+      <mat-label>Username</mat-label>
+      <input matInput type="text" name="username" [(ngModel)]="userName" autocomplete="off" #userNameCtrl="ngModel" required email>
       <mat-error *ngIf="!userNameCtrl.valid">
-        Please provide a valid email
+        Please provide a valid Username
       </mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline">
-      <input matInput type="password" placeholder="Password*" [(ngModel)]="password" name="password" #passwordCtrl="ngModel" required>
+      <mat-label>Password</mat-label>
+      <input matInput type="password" [(ngModel)]="password" name="password" #passwordCtrl="ngModel" required>
       <mat-error *ngIf="!passwordCtrl.valid">
         Please provide a valid password
       </mat-error>

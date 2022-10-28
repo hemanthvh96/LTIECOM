@@ -1,8 +1,13 @@
 .wishlist-wrapper {
     position: absolute;
-    left: 10%;
-    top: 8%;
-    width: 100%;
+    /* left: 10%; 
+    top: 8%;*/
+    width: 90%;
+    background: #fff;
+    box-shadow: 0 1px 8px 0 rgb(0 0 0 / 6%);
+    padding-left: 40px;
+    padding-bottom: 40px;
+    margin: 29px 0px 36px 69px;
 }
 
 .page-header{
@@ -16,13 +21,14 @@
 
 button {   
      background-color: #2f2fe1;   
-     width: 10%;  
+     /* width: 10%;   */
      color: white;   
-     padding: 15px;   
-     margin: 0px 10px;   
+     /* padding: 15px;    */
+     height: 36px;
+     margin: 0px 11px;   
      border: none;   
      cursor: pointer;   
-     margin-right: 43px;
+     margin-right: 100px;
 }   
 
 .fav-icon{
@@ -38,6 +44,7 @@ table {
 
 .table-header{
     background-color: #912fe1;
+    color: #fff;
 }
 
 .header {
@@ -47,7 +54,11 @@ table {
 
 .dropdown{
     width: 25%;
-    margin-right: 489px;
+    margin-right: 425px;
+}
+
+.mat-header-cell {
+    color: #fff;
 }
 
 ::ng-deep

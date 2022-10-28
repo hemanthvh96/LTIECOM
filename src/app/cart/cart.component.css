@@ -7,8 +7,8 @@
 }
 
 .main {
-    display: flex;
-    align-items: center;
+    /* //display: flex;
+    align-items: center; */
     width: 100%;
 }
 
@@ -25,6 +25,13 @@
     float: left;
     height: 100%;
     width: 40%;
+    margin-top: 10px;
+}
+
+.main-wrapper{
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
 }
 
 .buttons {

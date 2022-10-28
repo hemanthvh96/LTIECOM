@@ -20,6 +20,7 @@ import { DeleteDialogComponent } from './wishlist/delete-dialog/delete-dialog.co
 import { EditDialogComponent } from './wishlist/edit-dialog/edit-dialog.component';
 import { AddDialogComponent } from './wishlist/add-dialog/add-dialog.component';
 import { CartComponent } from './cart/cart.component';
+import { WishlistService } from './services/wishlist.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import { CartComponent } from './cart/cart.component';
     AppRoutingModule,
     CommonModule
   ],
-  providers: [],
+  providers: [WishlistService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

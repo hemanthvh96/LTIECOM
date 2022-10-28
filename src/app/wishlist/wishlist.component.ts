@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { WishlistService } from '../services/wishlist.service';
 import { AddDialogComponent } from './add-dialog/add-dialog.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
@@ -27,21 +28,17 @@ export class WishlistComponent implements OnInit {
     {value: '2', viewValue: 'Second'},
     {value: '3', viewValue: 'Third'},
   ];
-  displayedColumns: string[] = ['name', 'price', 'details','action'];
+  displayedColumns: string[] = ['image', 'name', 'price', 'details','action'];
   dataSource = [
        {name: 'P1', price: 100, details: 'abc'},
        {name: 'P2', price: 200, details: 'pqr'},
        {name: 'P3', price: 300, details: 'xyz'}
      ];
-  // dataSource = [
-  //   {name: 'P1', price: 100, details: 'abc'},
-  //   {name: 'P2', price: 200, details: 'pqr'},
-  //   {name: 'P3', price: 300, details: 'xyz'}
-  // ]
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private wishlistService: WishlistService) { }
 
   ngOnInit(): void {
+    // this.getAllWishList();
   }
 
   ngAfterViewInit(): void {
@@ -80,5 +77,12 @@ export class WishlistComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+
+  // getAllWishList(){
+  //   //const header = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhc3NpZ25tZW50IiwiaWF0IjoxNjY2OTQyMzYxLCJleHAiOjE2NjY5NDQxNjF9.GslHx0vf7YHE7PLsHk90FsEImx2Ygipx5TfnSzwKVQdcBp76Eg4bSBTGfccHqEc54XOJKZMO4SJ7LIoqsRQjSw"
+  //   this.wishlistService.getAllWishlists().subscribe(res => {
+  //     console.log(res);
+  //   })
+  // }
 
 }
