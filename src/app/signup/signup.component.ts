@@ -30,7 +30,7 @@ export class SignupComponent implements OnInit {
         this.authService.registerUser(user).subscribe(res => {
             console.log(res);
             console.log("User created successfully")
+            if (res) signupForm.resetForm();
         })
-        signupForm.resetForm();
     }
 }
