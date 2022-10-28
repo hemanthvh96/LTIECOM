@@ -4,9 +4,9 @@
   <h2 class="header">Select Wishlist</h2>
   <mat-form-field class="dropdown" appearance="fill">
    <mat-label>Select Wishlist</mat-label>
-   <mat-select [(value)]="selectedList">
-    <mat-option *ngFor="let wishlist of wishlists" [value]="wishlist.value">
-      {{wishlist.viewValue}}
+   <mat-select [(ngModel)]="selectedList" (ngModelChange)="valueChanged()">
+    <mat-option *ngFor="let wishlist of wishlists" [value]="wishlist">
+      {{wishlist.name}}
     </mat-option>
    </mat-select>
   </mat-form-field>
@@ -15,7 +15,7 @@
 <button mat-raised-button mat-primary [disabled]="!selectedList" (click)="openEditDialog()">Rename</button>
 <button type="submit" mat-raised-button color="warn" [disabled]="!selectedList" (click)="openDeleteDialog()">Delete</button>
 
- <table mat-table *ngIf="selectedList" [dataSource]="dataSource" class="mat-elevation-z8">
+ <table mat-table *ngIf="selectedList && dataSource.length" [dataSource]="dataSource" class="mat-elevation-z8">
 
     <ng-container matColumnDef="image">
       <th mat-header-cell *matHeaderCellDef> Image </th>
@@ -24,7 +24,7 @@
 
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.productname}} </td>
     </ng-container>
   
     <ng-container matColumnDef="price">
@@ -34,12 +34,12 @@
   
     <ng-container matColumnDef="details">
       <th mat-header-cell *matHeaderCellDef> Details </th>
-      <td mat-cell *matCellDef="let element"> {{element.details}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
     </ng-container>
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef> Action </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button class="fav-icon" color="warn"><mat-icon>favorite</mat-icon></button>
+      <td mat-cell *matCellDef="let element;let index">
+        <button mat-icon-button class="fav-icon" color="warn" (click)="removeProduct(index)"><mat-icon>favorite</mat-icon></button>
         <!-- <button mat-icon-button class="fav-icon" color="warn"><mat-icon>favorite_border</mat-icon></button> -->
       </td>
     </ng-container>

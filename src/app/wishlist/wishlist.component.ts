@@ -1,5 +1,6 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { WishlistService } from '../services/wishlist.service';
@@ -23,11 +24,14 @@ export class WishlistComponent implements OnInit {
   //@ViewChild('paginator') paginator!: MatPaginator;
   //@ViewChild(MatPaginator) private paginator: MatPaginator; 
   selectedList: any;
-  wishlists = [
-    {value: '1', viewValue: 'First'},
-    {value: '2', viewValue: 'Second'},
-    {value: '3', viewValue: 'Third'},
-  ];
+  listDetails: any;
+  wishlists: any[] = [];
+  wishlistNames: any[] = [];
+  // wishlists = [
+  //   {value: '1', viewValue: 'First'},
+  //   {value: '2', viewValue: 'Second'},
+  //   {value: '3', viewValue: 'Third'},
+  // ];
   displayedColumns: string[] = ['image', 'name', 'price', 'details','action'];
   dataSource = [
        {name: 'P1', price: 100, details: 'abc'},
@@ -38,7 +42,7 @@ export class WishlistComponent implements OnInit {
   constructor(public dialog: MatDialog, private wishlistService: WishlistService) { }
 
   ngOnInit(): void {
-    // this.getAllWishList();
+     this.getAllWishList();
   }
 
   ngAfterViewInit(): void {
@@ -57,9 +61,14 @@ export class WishlistComponent implements OnInit {
   }
 
   openEditDialog(){
+    let data = {
+      name : this.selectedList,
+      uuid : this.listDetails.uuid,
+      customer_uuid : '5e86726f-56b2-11ed-b473-112c4e60a292'
+    }
     const dialogRef = this.dialog.open(EditDialogComponent, {
       width: '500px',
-      data: '',
+      data: data,
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -78,11 +87,56 @@ export class WishlistComponent implements OnInit {
     });
   }
 
-  // getAllWishList(){
-  //   //const header = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhc3NpZ25tZW50IiwiaWF0IjoxNjY2OTQyMzYxLCJleHAiOjE2NjY5NDQxNjF9.GslHx0vf7YHE7PLsHk90FsEImx2Ygipx5TfnSzwKVQdcBp76Eg4bSBTGfccHqEc54XOJKZMO4SJ7LIoqsRQjSw"
-  //   this.wishlistService.getAllWishlists().subscribe(res => {
-  //     console.log(res);
-  //   })
-  // }
+  getAllWishList(){
+    let params = '5e86726f-56b2-11ed-b473-112c4e60a292';
+    this.wishlistService.getAllWishlists(params).subscribe(res => {
+      console.log(res)
+      console.log(this.wishlists);
+      this.wishlistNames = [];
+      this.wishlists = [];
+      this.wishlists = Object.values(res);
+      this.wishlists.forEach(element => {
+        console.log(element)
+        this.wishlistNames.push(element.name);
+        console.log(this.wishlists)
+      });
+     
+    })
+  }
+
+  valueChanged(){
+    console.log(this.selectedList);
+    if(this.selectedList){
+      this.getAllWishListProducts(this.selectedList);
+    }
+  }
+
+  getAllWishListProducts(listSelected : any){
+    this.dataSource = [];
+    this.listDetails = listSelected;
+    this.dataSource = listSelected.wishlistProduct;
+    console.log(this.dataSource)
+    // this.wishlistService.getAllWishlistProducts().subscribe(res => {
+    //   console.log(res)
+      // console.log(this.wishlists);
+      // this.wishlists = [];
+      // var WishlistName = Object.values(res);
+      // WishlistName.forEach(element => {
+      //   console.log(element)
+      //   this.wishlists.push(element.name);
+      //   console.log(this.wishlists)
+      // });
+     
+  }
+
+  removeProduct(index : any){
+    console.log(index);
+    let params = index.uuid;
+    this.wishlistService.removeProductFromWishlist(params).subscribe(res => {
+      console.log(res);
+      console.log(this.selectedList)
+      this.getAllWishListProducts(this.selectedList)
+    })
+  }
 
 }
