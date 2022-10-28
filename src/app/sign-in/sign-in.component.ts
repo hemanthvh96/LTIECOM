@@ -1,4 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,14 +13,18 @@ export class SignInComponent implements OnInit {
   password: any;
   @Output() selectedIndex = new EventEmitter<string>();
 
-  constructor(private router : Router) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
-  signUp(){
-    let value='1'
+  loginUser(loginForm: NgForm) {
+    const loginDetails = { username: loginForm.controls['username'].value, password: loginForm.controls['password'].value };
+
+    this.authService.signinUser(loginDetails.username, loginDetails.password)
+  }
+  signUp() {
+    let value = '1'
     this.selectedIndex.emit(value);
   }
-
 }

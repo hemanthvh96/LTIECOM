@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 export interface User {
@@ -25,8 +25,9 @@ export class AuthService {
     }
 
     signinUser(username: string, password: string) {
-        this.http.post('http://localhost:8080/customers/authenticate_user', { username, password }).subscribe(res => {
-            console.log(res);
+        this.http.post('http://localhost:8080/customers/authenticate_user', { username, password }, { observe: 'response' }).subscribe((res) => {
+            console.log(res.headers.get("jwtToken"))
+            //localStorage.setItem('Authorization', '<token>')
         })
     }
 }

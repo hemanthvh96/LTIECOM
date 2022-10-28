@@ -14,7 +14,10 @@
             <p>RATINGS</p>
             <div class="ratings-list">
                 <ng-container *ngFor="let ratings of ratingsArr">
-                    <mat-checkbox color="primary">{{ratings.rating}}&#9733; & above</mat-checkbox>
+                    <mat-checkbox #check color="primary" [id]="ratings.id" [name]="ratings.rating"
+                        [value]="ratings.rating" [checked]="ratings.checked" (change)="onRatingsFilterChange($event)">
+                        {{ratings.rating}}&#9733; & above
+                    </mat-checkbox>
                 </ng-container>
             </div>
         </div>
@@ -44,16 +47,16 @@
                         </ng-container>
                     </mat-menu>
                     <!-- <div class="product-image-wrapper"> -->
-                    <img [src]="product.image">
+                    <img [src]="product.imagesrc">
                     <!-- </div> -->
                     <!-- <mat-icon fontIcon="favorite"></mat-icon> -->
                 </div>
                 <div class="product-detail">
-                    <h2>{{product.title}}</h2>
+                    <h2>{{product.name}}</h2>
                     <div class="price-wrapper">
                         <p class="price">&#x20b9; {{product.price}}</p>
                         <span
-                            [ngClass]="product.rating.rate > 4 ? 'rating rating-high': 'rating rating-low'">{{product.rating.rate}}
+                            [ngClass]="product.rating > 4 ? 'rating rating-high': 'rating rating-low'">{{product.rating}}
                             &#9733;
                         </span>
                     </div>

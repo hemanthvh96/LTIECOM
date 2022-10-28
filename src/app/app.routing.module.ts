@@ -14,9 +14,12 @@ const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'signin', component: SignInComponent },
     { path: 'signup', component: SignupComponent },
+    { path: 'products', component: ProductsComponent },
     { path: 'cart', component: CartComponent },
-    { path: 'wishlist', component: WishlistComponent,
-      children: [{path: 'delete', component: DeleteDialogComponent}] }
+    {
+        path: 'wishlist', component: WishlistComponent,
+        children: [{ path: 'delete', component: DeleteDialogComponent }]
+    }
 ]
 
 @NgModule({
