@@ -28,7 +28,7 @@ export class SignInComponent implements OnInit {
       this.router.navigate(['/products']);
     })
   }
-
+  
   signUp() {
     let value = '1'
     this.selectedIndex.emit(value);
