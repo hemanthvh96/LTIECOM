@@ -15,4 +15,9 @@ export class CartService {
   deleteProductFromCart(params: any){
     return this.http.delete('http://localhost:8080/cartitem/delete/' + encodeURIComponent(params));
   }
+
+  deleteAllProductsFromCart(params: any){
+    return this.http.delete('http://localhost:8080/cartitem/deleteallbycustomeruuid/' + encodeURIComponent(params));
+  }
+
 }
