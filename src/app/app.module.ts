@@ -22,6 +22,8 @@ import { EditDialogComponent } from './wishlist/edit-dialog/edit-dialog.componen
 import { AddDialogComponent } from './wishlist/add-dialog/add-dialog.component';
 import { CartComponent } from './cart/cart.component';
 import { AppDialog } from './dialog/dialog.component';
+import { WishlistService } from './services/wishlist.service';
+import { CartService } from './services/cart.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,7 @@ import { AppDialog } from './dialog/dialog.component';
     AppRoutingModule,
     CommonModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }, WishlistService, CartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
