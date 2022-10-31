@@ -17,9 +17,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
     declarations: [],
-    exports: [MatToolbarModule, MatButtonModule, MatInputModule, MatIconModule, MatTabsModule, 
-             MatFormFieldModule, MatSelectModule, MatTableModule, MatDialogModule, MatCardModule,
-             MatPaginatorModule, MatCheckboxModule, MatSliderModule, MatMenuModule]
+    exports: [MatToolbarModule, MatButtonModule, MatInputModule, MatIconModule, MatTabsModule,
+        MatFormFieldModule, MatSelectModule, MatTableModule, MatDialogModule, MatCardModule,
+        MatPaginatorModule, MatCheckboxModule, MatSliderModule, MatMenuModule]
 })
 
 export class MaterialModule {

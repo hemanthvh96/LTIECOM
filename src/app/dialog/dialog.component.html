@@ -1,0 +1,12 @@
+<div class="wishlist-dialog">
+    <h2 mat-dialog-title>Create New Wishlist</h2>
+    <div mat-dialog-content>
+        <mat-form-field appearance="outline">
+            <mat-label>Wishlist Name</mat-label>
+            <input matInput #wishList>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button cdkFocusInitial (click)="onCreateWishlist(wishList.value)">Create Wishlist</button>
+    </div>
+</div>

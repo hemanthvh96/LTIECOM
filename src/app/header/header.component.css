@@ -11,7 +11,6 @@ a {
 
 header a:hover, .active-link {
     background-color: #0000001a;
-    color: #ffa500;
 }
 
 .flex-spacer {
@@ -20,4 +19,44 @@ header a:hover, .active-link {
 
 ::ng-deep .mat-toolbar {
     background-image: linear-gradient(to right, #2361dc, #f01541) !important;
+}
+
+.header-logo {
+    height: 50px;
+}
+
+.profile {
+    font-size: 16px;
+    text-transform: capitalize;
+}
+
+.header-title {
+    display: inline;
+    margin: 0;
+    margin-bottom: 1px;
+}
+
+a {
+    margin-right: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+::ng-deep .profile-menu .mat-menu-content {
+    padding: 1rem !important;
+}
+
+.logout {
+    text-align: left;
+    font-size: 16px;
+}
+
+::ng-deep .doc-header .mat-button-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.doc-header mat-icon:not(:first-of-type) {
+    font-size: 22px;
+    align-self: center;
 }
