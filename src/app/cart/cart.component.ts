@@ -1,5 +1,7 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartService } from '../services/cart.service';
+import { MatSnackBar } from '@angular/material/snack-bar'; 
 
 @Component({
   selector: 'app-cart',
@@ -20,7 +22,8 @@ export class CartComponent implements OnInit {
   total: any;
   counter: number = 1;
 
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService, private router: Router,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getAllCartItems();
@@ -35,7 +38,7 @@ export class CartComponent implements OnInit {
   }
 
   getAllCartItems(){
-    let params = '5e86726f-56b2-11ed-b473-112c4e60a292';
+    let params = 'eed91db8-575b-11ed-9ab3-b33a65785306';
     this.dataSource = [];
     this.cartItems = [];
     this.cartService.getAllCartProducts(params).subscribe(res => {
@@ -56,6 +59,30 @@ export class CartComponent implements OnInit {
       console.log(res);
       this.getAllCartItems();
      })
+  }
+
+  emptyCart(){
+    let params = 'eed91db8-575b-11ed-9ab3-b33a65785306';
+    this.cartService.deleteAllProductsFromCart(params).subscribe(res => {
+      console.log(res);
+      if(res)
+        this.dataSource = [];
+    })
+  }
+
+  goToProducts(){
+    this.router.navigate(['/products']);
+  }
+
+  openSnackbar(message:string, action:string) {
+    let snackBarRef = this.snackBar.open(message, action);
+    this.dataSource = [];
+    snackBarRef.afterDismissed().subscribe(() => {
+      //console.log("The snackbar is dismissed");
+    });
+    snackBarRef.onAction().subscribe(() => {
+      //console.log("The snackbar action was triggered!");
+    })
   }
 
 }

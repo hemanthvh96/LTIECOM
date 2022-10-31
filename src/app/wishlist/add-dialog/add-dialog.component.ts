@@ -30,6 +30,7 @@ export class AddDialogComponent implements OnInit {
       console.log(res)
     })
     console.log('save');
+    this.dialogRef.close();
   }
 
 }

@@ -13,7 +13,7 @@ export class CartService {
   }
 
   deleteProductFromCart(params: any){
-    return this.http.delete('http://localhost:8080/cartitem/delete/' + encodeURIComponent(params));
+    return this.http.delete('http://localhost:8080/cartitem/delete/' + encodeURIComponent(params),{responseType: 'text'});
   }
 
   deleteAllProductsFromCart(params: any){

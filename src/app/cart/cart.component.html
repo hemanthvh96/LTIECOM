@@ -5,13 +5,13 @@
        <div class="center">
            <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90">
            <h4>Your cart is empty!</h4>
-           <button type="submit" mat-raised-button color="primary">Shop Now</button>
+           <button type="submit" mat-raised-button color="primary" (click)="goToProducts()">Shop Now</button>
        </div>
     </mat-card>
     </div>
 </ng-container>
 
-<div class="main">
+<div class="main" *ngIf="dataSource.length">
  <h2 class="header">Cart Items and Summary</h2>
  <div class="main-wrapper">
   <div class="first">
@@ -76,8 +76,8 @@
     
         </table>
         <div class="buttons">
-          <button type="submit" class="shop-button" mat-raised-button color="primary">Shop More</button>
-          <button type="submit" mat-raised-button color="warn">Empty Cart</button>
+          <button type="submit" class="shop-button" mat-raised-button color="primary" (click)="goToProducts()">Shop More</button>
+          <button type="submit" mat-raised-button color="warn" (click)="emptyCart()">Empty Cart</button>
         </div>
       </div>
    </ng-container>
@@ -87,7 +87,7 @@
     <mat-card class="second-card">
       <div>
       <p class="totalAmount">Grand Total = {{total}}</p>
-      <button type="submit" class="checkButton" mat-raised-button color="primary">Checkout</button>
+      <button type="submit" class="checkButton" mat-raised-button color="primary" (click)="openSnackbar('Your order has been placed','Close')">Checkout</button>
       </div>
     </mat-card>
   </div>

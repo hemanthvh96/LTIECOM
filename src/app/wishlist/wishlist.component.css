@@ -52,6 +52,11 @@ table {
     margin-bottom: 0px;
 }
 
+.image { 
+    width: 30px;
+    height: 30px;
+}
+
 .dropdown{
     width: 25%;
     margin-right: 425px;
