@@ -21,6 +21,7 @@ import { DeleteDialogComponent } from './wishlist/delete-dialog/delete-dialog.co
 import { EditDialogComponent } from './wishlist/edit-dialog/edit-dialog.component';
 import { AddDialogComponent } from './wishlist/add-dialog/add-dialog.component';
 import { CartComponent } from './cart/cart.component';
+import { AppDialog } from './dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { CartComponent } from './cart/cart.component';
     DeleteDialogComponent,
     EditDialogComponent,
     AddDialogComponent,
-    CartComponent
+    CartComponent,
+    AppDialog
   ],
   imports: [
     BrowserModule,

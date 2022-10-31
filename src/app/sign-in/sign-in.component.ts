@@ -22,8 +22,6 @@ export class SignInComponent implements OnInit {
     const loginDetails = { username: loginForm.controls['username'].value, password: loginForm.controls['password'].value };
 
     this.authService.signinUser(loginDetails.username, loginDetails.password).subscribe(res => {
-      const jwt = res.headers.get('jwtToken') as string;
-      localStorage.setItem('Authorization', jwt);
       loginForm.resetForm();
       this.router.navigate(['/products']);
     })
