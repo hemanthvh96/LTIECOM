@@ -2,12 +2,13 @@
     <div class="product-filters">
         <div class="filters-header">
             <h2 class="headerText">Filters</h2>
-            <a mat-button class="clear">Clear All</a>
+            <a mat-button class="clear" (click)="onFiltersReset()">Clear All</a>
         </div>
         <div class="filters-categories">
             <p>CATEGORIES</p>
             <div class="categories-list">
-                <a mat-button *ngFor="let category of categories | sortBy:''">{{category}}</a>
+                <a mat-button [id]='idx' *ngFor="let category of categories | sortBy:'';let idx = index"
+                    (click)="onCategoryClick(idx, catg)" #catg>{{category}}</a>
             </div>
         </div>
         <div class="filters-ratings">
@@ -23,16 +24,27 @@
         </div>
         <div class="filters-price">
             <p>PRICE</p>
-            <mat-slider color="primary" #filterPrice (change)="updateFilterPrice($event)" step="10" max="100000">
+            <mat-slider color="primary" (change)="updateFilterPrice($event)" step="10" max="100000"
+                [value]="filterPrice">
             </mat-slider>
-            <p>Min - 0 and Max - {{filterPrice.value}}</p>
+            <p>Min - 0 and Max - {{filterPrice}}</p>
         </div>
     </div>
     <div class="products-list">
-        <ng-container *ngFor="let product of products">
+        <div class="sort-products" *ngIf="!!products.length">
+            <mat-form-field appearance="outline">
+                <mat-label>Sort Price</mat-label>
+                <mat-select>
+                    <mat-option [value]="'high'">High to Low</mat-option>
+                    <mat-option [value]="'low'">Low to High</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <ng-container *ngFor="let product of products;let index = index">
             <div class="products-details">
                 <div class="product-image">
-                    <mat-icon fontIcon="favorite_border favorite border icon" [matMenuTriggerFor]="menu"></mat-icon>
+                    <mat-icon fontIcon="favorite_border favorite border icon" [matMenuTriggerFor]="menu" [id]="index"
+                        (click)="onWishlistClick(product, index)" #wishlistMenuTrigger="matMenuTrigger"></mat-icon>
                     <mat-menu #menu="matMenu">
                         <ng-container *ngFor="let name of wishlist; let idx = index">
                             <div class="wishlist-wrapper">
@@ -66,6 +78,13 @@
                 </div>
             </div>
         </ng-container>
+        <ng-container *ngIf="!products.length">
+            <p class="no-products">No Products Available</p>
+        </ng-container>
+        <div>
+            <mat-paginator [length]="15" [pageSize]="5" [pageSizeOptions]="[5,10]" (page)="onPageChange($event)">
+            </mat-paginator>
+        </div>
     </div>
 
 </section>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService, User } from '../services/auth.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { AuthService, User } from '../services/auth.service';
 
 export class SignupComponent implements OnInit {
 
-    constructor(private authService: AuthService) { }
+    constructor(private authService: AuthService, private router: Router) { }
 
     hide = true;
     ngOnInit(): void {
@@ -31,6 +32,7 @@ export class SignupComponent implements OnInit {
             console.log(res);
             console.log("User created successfully")
             if (res) signupForm.resetForm();
+            this.router.navigate(['/login'])
         })
     }
 }

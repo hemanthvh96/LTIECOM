@@ -1,9 +1,29 @@
 <header class="doc-header">
     <mat-toolbar color="primary">
-        <a href="/"></a>
+        <img src="https://www.lntinfotech.com/wp-content/uploads/2021/09/LTI-logo.svg" class="header-logo">
         <div class="flex-spacer"></div>
-        <a mat-button routerLink="/wishlist" routerLinkActive="active-link">Wishlist</a>
-        <a mat-button routerLink="/login" routerLinkActive="active-link">Sign In</a>
-        <a mat-button routerLink="/signup" routerLinkActive="active-link">Sign Up</a>
+        <ng-container *ngIf="isUserLoggedIn">
+            <button mat-button [matMenuTriggerFor]="menu" class="profile">{{user.firstName}}
+                <mat-icon fontIcon="keyboard_arrow_down"></mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" class="profile-menu">
+                <button mat-menu-item class="logout">My Profile</button>
+                <button mat-menu-item class="logout" (click)="onLogout()">Logout</button>
+            </mat-menu>
+
+            <a mat-button routerLink="/products" routerLinkActive="active-link">
+                <mat-icon fontIcon="home"></mat-icon>
+                <p class="header-title">Home</p>
+            </a>
+            <a mat-button routerLink="/wishlist" routerLinkActive="active-link">
+                <mat-icon fontIcon="favorite_border favorite border icon"></mat-icon>
+                <p class="header-title">Wishlist</p>
+            </a>
+            <a mat-button routerLink="/cart" routerLinkActive="active-link">
+                <mat-icon fontIcon="shopping_cart"></mat-icon>
+                <p class="header-title">Cart</p>
+            </a>
+
+        </ng-container>
     </mat-toolbar>
 </header>

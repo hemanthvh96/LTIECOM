@@ -7,8 +7,8 @@ import { Observable } from "rxjs";
 export class HttpInterceptorService implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (localStorage.getItem('Authorization')) {
-            const jwt = localStorage.getItem('Authorization');
+        if (localStorage.getItem('Auth_Token')) {
+            const jwt = localStorage.getItem('Auth_Token');
             const headers = new HttpHeaders().set('Authorization', `Bearer ${jwt}`);
             req = req.clone({ headers })
         }
