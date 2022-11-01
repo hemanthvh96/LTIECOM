@@ -75,6 +75,8 @@
         <!-- <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr> -->
     
         </table>
+        <mat-paginator #paginator [pageSize]="2" [pageSizeOptions]="[2, 5, 10, 25, 100]">
+        </mat-paginator> 
         <div class="buttons">
           <button type="submit" class="shop-button" mat-raised-button color="primary" (click)="goToProducts()">Shop More</button>
           <button type="submit" mat-raised-button color="warn" (click)="emptyCart()">Empty Cart</button>

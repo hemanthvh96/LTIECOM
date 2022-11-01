@@ -25,10 +25,11 @@ export class EditDialogComponent implements OnInit {
 
   save(){
     console.log('save');
+    let user = { ...JSON.parse(localStorage.getItem('user') as string) };
     let request = {
       'name' : this.wishlistName,
       'uuid' : this.data.name.uuid,
-      'customer_uuid' : '5e86726f-56b2-11ed-b473-112c4e60a292'
+      'customer_uuid' : user.customerUuid
     }
     this.wishlistService.updateWishlist(request).subscribe(res => {
        console.log(res);

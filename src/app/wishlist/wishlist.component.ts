@@ -14,16 +14,18 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
   styleUrls: ['./wishlist.component.css']
 })
 export class WishlistComponent implements OnInit {
- // @ViewChild('paginator') paginator!: MatPaginator;
-  //@//ViewChild(MatPaginator) paginator: MatPaginator; 
- // @ViewChild ('paginator') dataSource = new MatTableDataSource<Element>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+ //@ViewChild(MatPaginator) paginator: MatPaginator; 
+  wishListProducts : any[] = [];
+  dataSource =  new MatTableDataSource(this.wishListProducts);
   selectedList: any;
   listDetails: any;
+  
   wishlists: any[] = [];
   wishlistNames: any[] = [];
   //dataSource = new MatTableDataSource<>;
   displayedColumns: string[] = ['image', 'name', 'price', 'details','action'];
-  dataSource: any[] = [];
+  //dataSource: any[] = [];
 
   constructor(public dialog: MatDialog, private wishlistService: WishlistService) { }
 
@@ -32,7 +34,7 @@ export class WishlistComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-   //this.dataSource.paginator = this.paginator;  // <-- STEP (4)
+   this.dataSource.paginator = this.paginator;  // <-- STEP (4)
    //this.dataSource.push(this.paginator);
 }
 
@@ -44,8 +46,10 @@ export class WishlistComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.selectedList = '';
-      this.getAllWishList();
+      if(result){
+        this.selectedList = '';
+        this.getAllWishList();
+      }
       console.log('The dialog was closed');
     });
   }
@@ -63,9 +67,13 @@ export class WishlistComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
      // this.wishlistNames = [];
-      console.log(result);
-      this.getAllWishList();
-      this.selectedList ='';
+      if(result){
+        this.selectedList = '';
+        this.getAllWishList();
+        //this.selectedList = result.name;
+        
+      }
+      console.log(this.selectedList)
       //this.listDetails = result;
     });
   }
@@ -77,13 +85,18 @@ export class WishlistComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.getAllWishList();
+      if(result)
+        this.getAllWishList();
     });
   }
 
   getAllWishList(){
-    let params = '5e86726f-56b2-11ed-b473-112c4e60a292';
+    //let params = '5e86726f-56b2-11ed-b473-112c4e60a292';
+    let user = { ...JSON.parse(localStorage.getItem('user') as string) };
+    let params = user.customerUuid;
+    //console.log(user.customerUuid)
     this.wishlistService.getAllWishlists(params).subscribe(res => {
+      console.log(res)
       this.wishlistNames = [];
       this.wishlists = [];
       this.wishlists = Object.values(res);
@@ -92,6 +105,7 @@ export class WishlistComponent implements OnInit {
       });
       console.log(this.wishlistNames)    
     })
+
   }
 
   valueChanged(){
@@ -103,9 +117,14 @@ export class WishlistComponent implements OnInit {
   }
 
   getAllWishListProducts(listSelected : any){
-    this.dataSource = [];
+    //this.dataSource = [];
     this.listDetails = listSelected;
-    this.dataSource = listSelected.wishlistProduct;
+    //this.dataSource = listSelected.wishlistProduct;
+    //this.selectedList = listSelected.name
+    this.wishListProducts = listSelected.wishlistProduct;
+    this.dataSource = new MatTableDataSource(this.wishListProducts)
+    this.dataSource.paginator = this.paginator;
+    //this.dataSource = this.wishListProducts;
     //this.selectedList = listSelected.name;
     console.log(this.dataSource)
   }
@@ -122,15 +141,10 @@ export class WishlistComponent implements OnInit {
 
   getWishListProductByList(listSelected: any){
     let params = listSelected.uuid;
-    this.dataSource = [];
     this.wishlistService.getWishlistProductsByListId(params).subscribe(res => {
-     // console.log(res.wishlistProduct);
-      console.log(res);
-      let data =res;
-      //this.dataSource = data.wishlistProduct;
-      console.log(this.dataSource)
+      let data = Object.values(res);
+      this.wishListProducts = data[3];
     })
-    console.log(this.dataSource)
   }
 
 }

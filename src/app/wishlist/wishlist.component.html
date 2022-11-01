@@ -1,4 +1,5 @@
 <div class="wishlist-wrapper">
+  <div class="first">
   <h1 class="page-header">Wish List</h1>
  <div>
   <h2 class="header">Select Wishlist</h2>
@@ -12,10 +13,12 @@
   </mat-form-field>
   <button mat-raised-button mat-primary (click)="openAddDialog()"><mat-icon>add</mat-icon> Create New</button>
  </div>
-<button mat-raised-button mat-primary [disabled]="!selectedList" (click)="openEditDialog()">Rename</button>
-<button type="submit" mat-raised-button color="warn" [disabled]="!selectedList" (click)="openDeleteDialog()">Delete</button>
-
- <table mat-table *ngIf="selectedList && dataSource.length" [dataSource]="dataSource" class="mat-elevation-z8">
+ <button mat-raised-button mat-primary [disabled]="!selectedList" (click)="openEditDialog()">Rename</button>
+ <button type="submit" mat-raised-button color="warn" [disabled]="!selectedList" (click)="openDeleteDialog()">Delete</button>
+  </div>
+  
+ <div class="second" *ngIf="selectedList && wishListProducts.length">
+ <table mat-table *ngIf="selectedList && wishListProducts.length" [dataSource]="wishListProducts" class="mat-elevation-z8">
 
     <ng-container matColumnDef="image">
       <th mat-header-cell *matHeaderCellDef> Image </th>
@@ -50,9 +53,10 @@
 
  <!-- <mat-paginator #paginator [pageSize]="2" [pageSizeOptions]="[2, 5, 10, 25, 100]">
 </mat-paginator> -->
- <!-- <mat-paginator *ngIf="selectedList" [length]="10"
-              [pageSize]="2"
-              [pageSizeOptions]="[2, 5, 10, 25, 100]"
+ <mat-paginator *ngIf="selectedList && wishListProducts.length" [length]="3" #paginator
+              [pageSize]="3"
+              [pageSizeOptions]="[3, 5, 10, 25, 100]"
               aria-label="Select page">
-</mat-paginator> -->
+</mat-paginator>
+</div>
 </div>

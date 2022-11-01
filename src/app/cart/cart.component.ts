@@ -1,7 +1,8 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../services/cart.service';
 import { MatSnackBar } from '@angular/material/snack-bar'; 
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-cart',
@@ -9,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource : any[] = [];
   cartItems : any[] = [];
   // dataSource = [
@@ -38,7 +40,8 @@ export class CartComponent implements OnInit {
   }
 
   getAllCartItems(){
-    let params = 'eed91db8-575b-11ed-9ab3-b33a65785306';
+    let user = { ...JSON.parse(localStorage.getItem('user') as string) };
+    let params = user.customerUuid;
     this.dataSource = [];
     this.cartItems = [];
     this.cartService.getAllCartProducts(params).subscribe(res => {
@@ -62,7 +65,8 @@ export class CartComponent implements OnInit {
   }
 
   emptyCart(){
-    let params = 'eed91db8-575b-11ed-9ab3-b33a65785306';
+    let user = { ...JSON.parse(localStorage.getItem('user') as string) };
+    let params = user.customerUuid;
     this.cartService.deleteAllProductsFromCart(params).subscribe(res => {
       console.log(res);
       if(res)
