@@ -59,4 +59,7 @@
               aria-label="Select page">
 </mat-paginator>
 </div>
+
+<p *ngIf="selectedList && !wishListProducts.length" class="noProduct">No Products in this wishlist!</p>   
+
 </div>
