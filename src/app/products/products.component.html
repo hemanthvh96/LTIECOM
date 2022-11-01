@@ -40,19 +40,20 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <ng-container *ngFor="let product of products;let index = index">
+        <ng-container *ngFor="let product of paginationProducts;let index = index">
             <div class="products-details">
                 <div class="product-image">
-                    <mat-icon fontIcon="favorite_border favorite border icon" [matMenuTriggerFor]="menu" [id]="index"
-                        (click)="onWishlistClick(product, index)" #wishlistMenuTrigger="matMenuTrigger"></mat-icon>
+                    <mat-icon fontIcon="favorite_border" [matMenuTriggerFor]="menu" [id]="index"
+                        (click)="onWishlistClick(product, index)" #wishlistMenuTrigger></mat-icon>
                     <mat-menu #menu="matMenu">
-                        <ng-container *ngFor="let name of wishlist; let idx = index">
+                        <ng-container *ngFor="let wishlist of wishlists; let idx = index">
                             <div class="wishlist-wrapper">
                                 <div class="wishlist-name">
-                                    <p>{{name}}</p>
+                                    <p>{{wishlist.name}}</p>
                                 </div>
                                 <div class="wishlist-checkbox">
-                                    <mat-checkbox color="primary">
+                                    <mat-checkbox color="primary" [checked]="getCheckedStatus(product, wishlist, index)"
+                                        (change)="onWishlistAddDelete($event, wishlist, product, index)">
                                     </mat-checkbox>
                                 </div>
                             </div>
@@ -82,7 +83,8 @@
             <p class="no-products">No Products Available</p>
         </ng-container>
         <div>
-            <mat-paginator [length]="15" [pageSize]="5" [pageSizeOptions]="[5,10]" (page)="onPageChange($event)">
+            <mat-paginator [length]="products.length" [pageSize]="5" [pageSizeOptions]="[5,10]"
+                (page)="onPageChange($event)">
             </mat-paginator>
         </div>
     </div>
