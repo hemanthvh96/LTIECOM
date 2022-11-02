@@ -4,7 +4,7 @@
             <app-sign-in (selectedIndex)="selectIndex($event)"></app-sign-in>
         </mat-tab>
         <mat-tab label="Sign Up">
-            <app-signup></app-signup>
+            <app-signup (selectedIndex)="selectIndex($event)"></app-signup>
         </mat-tab>
     </mat-tab-group>
 </div>
