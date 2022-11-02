@@ -1,7 +1,7 @@
 import { Component, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../services/cart.service';
-import { MatSnackBar } from '@angular/material/snack-bar'; 
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -13,7 +13,7 @@ import { MatTableDataSource } from '@angular/material/table';
 export class CartComponent implements OnInit {
   @ViewChild('paginator') paginator: MatPaginator;
   dataSource = new MatTableDataSource<any>;
-  cartItems : any[] = [];
+  cartItems: any[] = [];
   user;
   // dataSource = [
   //   {name: 'P1', details: 'abc', quantity: 2, price: 100},
@@ -27,22 +27,25 @@ export class CartComponent implements OnInit {
   counter: number = 1;
 
   constructor(private cartService: CartService, private router: Router,
-              private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    if (!localStorage.getItem('Auth_Token')) {
+      this.router.navigate(['/'])
+    }
     this.user = { ...JSON.parse(localStorage.getItem('user') as string) };
     this.getAllCartItems();
     this.calculateTotal();
   }
 
-  calculateTotal(){
+  calculateTotal() {
     this.total = 0;
     this.cartItems.forEach(element => {
       this.total = this.total + element.price * element.quantity;
     });
   }
 
-  quantityChange(element){
+  quantityChange(element) {
     // this.total = 0;
     // this.cartItems.forEach(element => {
     //   this.total = this.total + element.price * element.quantity;
@@ -61,7 +64,7 @@ export class CartComponent implements OnInit {
     })
   }
 
-  getAllCartItems(){
+  getAllCartItems() {
     let params = this.user.customerUuid;
     //this.dataSource = [];
     this.cartItems = [];
@@ -74,32 +77,32 @@ export class CartComponent implements OnInit {
       // this.cartItems.forEach(element => {
       //   this.dataSource.push(element);
       // });
-      
+
     });
   }
 
-  deleteCartItem(index:any){
-     let params = index.uuid;
-     this.cartService.deleteProductFromCart(params).subscribe(res => {
+  deleteCartItem(index: any) {
+    let params = index.uuid;
+    this.cartService.deleteProductFromCart(params).subscribe(res => {
       this.getAllCartItems();
-     })
+    })
   }
 
-  emptyCart(){
+  emptyCart() {
     let params = this.user.customerUuid;
     this.cartService.deleteAllProductsFromCart(params).subscribe(res => {
-      if(res)
+      if (res)
         this.cartItems = [];
     })
   }
 
-  goToProducts(){
+  goToProducts() {
     this.router.navigate(['/products']);
   }
 
-  openSnackbar(message:string, action:string) {
+  openSnackbar(message: string, action: string) {
     let username = this.user.firstName
-    let msg = 'Hi ' + username + ', Your order has been placed successfully!'; 
+    let msg = 'Hi ' + username + ', Your order has been placed successfully!';
     let snackBarRef = this.snackBar.open(msg, action);
     this.cartItems = [];
     this.emptyCart();

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService, User } from '../services/auth.service';
@@ -11,6 +11,7 @@ import { AuthService, User } from '../services/auth.service';
 
 export class SignupComponent implements OnInit {
 
+    @Output() selectedIndex = new EventEmitter<string>();
     constructor(private authService: AuthService, private router: Router) { }
 
     hide = true;
@@ -35,4 +36,10 @@ export class SignupComponent implements OnInit {
             this.router.navigate(['/login'])
         })
     }
+
+    login() {
+        let value = '0'
+        this.selectedIndex.emit(value);
+    }
+
 }

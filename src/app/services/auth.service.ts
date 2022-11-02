@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, map, tap } from 'rxjs';
 
 export interface User {
@@ -48,6 +48,6 @@ export class AuthService {
             localStorage.removeItem(el);
         });
         this.isLoggedIn$.next(false);
-        this.router.navigate(['/login']);
+        this.router.navigate(['/']);
     }
 }

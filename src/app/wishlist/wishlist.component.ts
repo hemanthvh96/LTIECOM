@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { WishlistService } from '../services/wishlist.service';
 import { AddDialogComponent } from './add-dialog/add-dialog.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
@@ -15,35 +16,38 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 })
 export class WishlistComponent implements OnInit {
   @ViewChild('paginator') paginator: MatPaginator;
- //@ViewChild(MatPaginator) paginator: MatPaginator; 
+  //@ViewChild(MatPaginator) paginator: MatPaginator; 
   //wishListProducts : any = [];
   wishListProducts = new MatTableDataSource<any>;
- // dataSource =  new MatTableDataSource(this.wishListProducts);
- dataSource : any = [];
+  // dataSource =  new MatTableDataSource(this.wishListProducts);
+  dataSource: any = [];
   selectedList: any;
   listDetails: any;
-  
+
   wishlists: any[] = [];
   wishlistNames: any[] = [];
   //dataSource = new MatTableDataSource<>;
-  displayedColumns: string[] = ['image', 'name', 'price', 'details','action'];
+  displayedColumns: string[] = ['image', 'name', 'price', 'details', 'action'];
   //dataSource: any[] = [];
 
   constructor(public dialog: MatDialog, private wishlistService: WishlistService,
-              private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit(): void {
-     this.getAllWishList();
+    if (!localStorage.getItem('Auth_Token')) {
+      this.router.navigate(['/']);
+    }
+    this.getAllWishList();
   }
 
   ngAfterViewInit(): void {
     this.wishListProducts = new MatTableDataSource();
-  // this.dataSource.paginator = this.paginator;  // <-- STEP (4)
-   this.wishListProducts.paginator = this.paginator;
-   //this.dataSource.push(this.paginator);
-}
+    // this.dataSource.paginator = this.paginator;  // <-- STEP (4)
+    this.wishListProducts.paginator = this.paginator;
+    //this.dataSource.push(this.paginator);
+  }
 
-  openDeleteDialog(){
+  openDeleteDialog() {
     let params = this.listDetails.uuid;
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '500px',
@@ -51,19 +55,19 @@ export class WishlistComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this.selectedList = '';
         this.getAllWishList();
-        this.openSnackbar('Wishlist deleted successfully','Close');
+        this.openSnackbar('Wishlist deleted successfully', 'Close');
       }
     });
   }
 
-  openEditDialog(){
+  openEditDialog() {
     let data = {
-      name : this.selectedList,
-      uuid : this.listDetails.uuid,
-      customer_uuid : '5e86726f-56b2-11ed-b473-112c4e60a292'
+      name: this.selectedList,
+      uuid: this.listDetails.uuid,
+      customer_uuid: '5e86726f-56b2-11ed-b473-112c4e60a292'
     }
     const dialogRef = this.dialog.open(EditDialogComponent, {
       width: '500px',
@@ -71,33 +75,33 @@ export class WishlistComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-     // this.wishlistNames = [];
-      if(result){
+      // this.wishlistNames = [];
+      if (result) {
         this.selectedList = '';
         this.getAllWishList();
         //this.selectedList = result.name;
-        this.openSnackbar('Wishlist updated successfully','Close');
+        this.openSnackbar('Wishlist updated successfully', 'Close');
       }
       //this.listDetails = result;
     });
   }
 
-  openAddDialog(){
+  openAddDialog() {
     const dialogRef = this.dialog.open(AddDialogComponent, {
       width: '500px',
       data: '',
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        this.selectedList = ''; 
+      if (result) {
+        this.selectedList = '';
         this.getAllWishList();
-        this.openSnackbar('Wishlist added successfully','Close');
+        this.openSnackbar('Wishlist added successfully', 'Close');
       }
     });
   }
 
-  getAllWishList(){
+  getAllWishList() {
     //let params = '5e86726f-56b2-11ed-b473-112c4e60a292';
     let user = { ...JSON.parse(localStorage.getItem('user') as string) };
     let params = user.customerUuid;
@@ -112,13 +116,13 @@ export class WishlistComponent implements OnInit {
 
   }
 
-  valueChanged(){
-    if(this.selectedList){
+  valueChanged() {
+    if (this.selectedList) {
       this.getAllWishListProducts(this.selectedList);
     }
   }
 
-  getAllWishListProducts(listSelected : any){
+  getAllWishListProducts(listSelected: any) {
     //this.dataSource = [];
     this.listDetails = listSelected;
     this.dataSource = listSelected.wishlistProduct;
@@ -132,14 +136,14 @@ export class WishlistComponent implements OnInit {
     //this.selectedList = listSelected.name;
   }
 
-  removeProduct(index : any){
+  removeProduct(index: any) {
     let params = index.uuid;
     this.wishlistService.removeProductFromWishlist(params).subscribe(res => {
       this.getWishListProductByList(this.selectedList)
     })
   }
 
-  getWishListProductByList(listSelected: any){
+  getWishListProductByList(listSelected: any) {
     let params = listSelected.uuid;
     this.wishlistService.getWishlistProductsByListId(params).subscribe(res => {
       let data = Object.values(res);
@@ -149,10 +153,10 @@ export class WishlistComponent implements OnInit {
     })
   }
 
-  openSnackbar(message:string, action:string) {
+  openSnackbar(message: string, action: string) {
     //let username = this.user.firstName
-   // let msg = 'Hi ' + username + ', Your order has been placed successfully!'; 
-    let snackBarRef = this.snackBar.open(message, action, {duration: 1000} );
+    // let msg = 'Hi ' + username + ', Your order has been placed successfully!'; 
+    let snackBarRef = this.snackBar.open(message, action, { duration: 1000 });
     //this.cartItems = [];
     //this.emptyCart();
     snackBarRef.afterDismissed().subscribe(() => {

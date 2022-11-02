@@ -48,7 +48,7 @@ export class ProductsComponent implements OnInit {
     pageIndex: any = 0;
     pageSize: any = 5;
     length: any = this.products.length;
-    currentSort: string = 'low';
+    currentSort: string = '';
     showSnackbar = true;
 
     constructor(private productsService: ProductsService, private wishlistService: WishlistService, private router: Router, private renderer: Renderer2, private dialog: MatDialog, private cd: ChangeDetectorRef, private cartService: CartService, private _snackBar: MatSnackBar) { }
@@ -59,7 +59,7 @@ export class ProductsComponent implements OnInit {
 
     ngOnInit() {
         if (!localStorage.getItem('Auth_Token')) {
-            this.router.navigate(['/login'])
+            this.router.navigate(['/'])
         } else {
             this.user = JSON.parse(localStorage.getItem('user') as string);
         }
@@ -152,8 +152,16 @@ export class ProductsComponent implements OnInit {
 
         if (!this.filters[0].ratingsArr.length && !this.filters[1].price && !this.filters[2].category) {
             this.products = [...this.allProducts];
-            this.paginationProducts = [...this.products]
+            if (this.currentSort === 'high') {
+                this.products = [...this.products.sort((product1: any, product2: any) => product2.price - product1.price)]
+            }
+            if (this.currentSort === 'low') {
+                this.products = [...this.products.sort((product1: any, product2: any) => product1.price - product2.price)]
+            }
+            this.pageIndex = 0
             return this.paginateProducts();
+            //this.paginationProducts = [...this.products]
+            //return this.paginateProducts();
         }
         let ratingsfilteredProducts: any[] = [];
         if (this.filters[0].ratingsArr.length) {
@@ -475,11 +483,13 @@ export class ProductsComponent implements OnInit {
         }
         if (sortValue === 'high') {
             this.products = [...this.products.sort((product1: any, product2: any) => product2.price - product1.price)]
+            this.pageIndex = 0;
             this.paginateProducts()
         }
 
         if (sortValue === 'low') {
             this.products = [...this.products.sort((product1: any, product2: any) => product1.price - product2.price)];
+            this.pageIndex = 0;
             this.paginateProducts()
         }
     }

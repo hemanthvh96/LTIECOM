@@ -14,10 +14,11 @@
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Password</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="password" name="password" #passwordCtrl="ngModel" required>
+      <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="password" name="password" #passwordCtrl="ngModel"
+        required>
       <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-      [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
       <mat-error *ngIf="!passwordCtrl.valid">
         Please provide a valid password
@@ -26,6 +27,6 @@
     <div class="submit">
       <button type="submit" mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Login</button>
     </div>
-    <p class="checkAccount">Don't have an account ? <a href="#" (click)="signUp()"> Sign Up </a></p>
+    <p class="checkAccount">Don't have an account ? <a routerLink="" (click)="signUp()"> Sign Up </a></p>
   </form>
 </div>
