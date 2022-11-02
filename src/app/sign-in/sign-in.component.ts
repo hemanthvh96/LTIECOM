@@ -12,7 +12,6 @@ export class SignInComponent implements OnInit {
   userName: any;
   password: any;
   @Output() selectedIndex = new EventEmitter<string>();
-  incorrectData: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) { }
 
@@ -23,13 +22,8 @@ export class SignInComponent implements OnInit {
     const loginDetails = { username: loginForm.controls['username'].value, password: loginForm.controls['password'].value };
 
     this.authService.signinUser(loginDetails.username, loginDetails.password).subscribe(res => {
-      if(res){
-        loginForm.resetForm();
-        this.incorrectData = false;
-        this.router.navigate(['/products']);
-      } else {
-        this.incorrectData = true;
-      }
+      loginForm.resetForm();
+      this.router.navigate(['/products']);
     })
   }
   

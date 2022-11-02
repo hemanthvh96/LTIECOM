@@ -118,7 +118,7 @@ table {
 }
 
 .checkButton{
-    height: 40px;
+    /* height: 40px; */
     float: right;
     /* //margin-top: 40%; */
     margin-right: 63px;

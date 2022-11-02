@@ -67,6 +67,7 @@ export class CartComponent implements OnInit {
     this.cartItems = [];
     this.cartService.getAllCartProducts(params).subscribe(res => {
       this.cartItems = Object.values(res);
+      this.cartItems = this.cartItems.sort((a, b) => (a.productname < b.productname ? -1 : 1));
       this.dataSource = new MatTableDataSource(this.cartItems);
       this.dataSource.paginator = this.paginator;
       this.calculateTotal();
