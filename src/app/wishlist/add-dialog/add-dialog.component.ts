@@ -22,14 +22,14 @@ export class AddDialogComponent implements OnInit {
   }
 
   save(){
+    let user = { ...JSON.parse(localStorage.getItem('user') as string) };
     var request = {
       'name' : this.wishlistName,
-      'customer_uuid' : '5e86726f-56b2-11ed-b473-112c4e60a292'
+      'customer_uuid' : user.customerUuid
     }
     this.wishlistService.createNewWishlist(request).subscribe(res => {
-      console.log(res)
-    })
-    console.log('save');
+      this.dialogRef.close(res);
+    }) 
   }
 
 }

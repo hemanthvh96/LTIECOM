@@ -3,20 +3,38 @@
     /* left: 10%; 
     top: 8%;*/
     width: 90%;
-    background: #fff;
-    box-shadow: 0 1px 8px 0 rgb(0 0 0 / 6%);
+    /* background: #fff;
+    box-shadow: 0 1px 8px 0 rgb(0 0 0 / 6%); */
     padding-left: 40px;
     padding-bottom: 40px;
-    margin: 29px 0px 36px 69px;
+    margin: 10px 0px 36px 28px;
+}
+
+.first {
+    background: #fff;
+    /* box-shadow: 0 1px 8px 0 rgb(0 0 0 / 6%); */
+    padding-bottom: 20px;
+    padding-left: 11%;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+.second {
+    background: #fff;
+    box-shadow: 0 1px 8px 0 rgb(0 0 0 / 6%);
+    padding-bottom: 20px;
+    padding-top: 17px;
+    margin-top: 10px;
+    /* padding-left: 11%; */
 }
 
 .page-header{
+    margin-top: 10px;
     text-align: center;
-    text-align: center;
-    margin-top: 24px;
-    font-weight: bolder;
-    margin-right: 258px;
-    color: crimson;
+    font-size: 20px;
+    color: transparent;
+    font-weight: 600;
+    -webkit-background-clip: text;
+    background-image: linear-gradient(to right, #ff5275, #2361dc) !important;
 }
 
 button {   
@@ -25,10 +43,10 @@ button {
      color: white;   
      /* padding: 15px;    */
      height: 36px;
-     margin: 0px 11px;   
+     /* margin: 0px 11px;    */
      border: none;   
      cursor: pointer;   
-     margin-right: 100px;
+     margin-right: 85px;
 }   
 
 .fav-icon{
@@ -38,13 +56,18 @@ button {
 }
 
 table {
-    width: 74%;
-    margin-top: 35px;
+    width: 100%;
+    /* margin-top: 35px; */
 }
 
 .table-header{
-    background-color: #912fe1;
+    /* //background-color: #912fe1; */
     color: #fff;
+    background-image: linear-gradient(to right, #ff5275, #2361dc) !important;
+}
+
+.table-row{
+    height: 61px;
 }
 
 .header {
@@ -52,18 +75,56 @@ table {
     margin-bottom: 0px;
 }
 
+.image { 
+    /* width: 45px;
+    height: 45px; */
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
 .dropdown{
     width: 25%;
-    margin-right: 425px;
+    margin-right: 515px;
+}
+
+.paginator{
+    margin-right: 78px;
+    background: none !important;
+}
+
+.noProduct {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.detailsHeader{
+    text-align: center;
+}
+
+.imageHeader{
+    padding-left: 56px !important;
 }
 
 .mat-header-cell {
     color: #fff;
 }
 
-::ng-deep
+/* ::ng-deep
 .mat-paginator-container{
     width: 75% !important;
-}
+} */
 
+/* ::ng-deep
+.mat-select-value{
+    margin-bottom: 17px;
+} */
 
+/* .dropdown-select
+ :mat-select-value{
+    margin-bottom: 17px;
+} */

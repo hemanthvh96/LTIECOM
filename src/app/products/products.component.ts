@@ -496,30 +496,54 @@ export class ProductsComponent implements OnInit {
             customer_uuid: this.user.customerUuid
         }
 
-        this.cartService.addProductToCart(productDetails).subscribe(res => {
-            console.log("Product added to cart susccessfully");
-            this.cartService.getAllCartProducts(this.user.customerUuid).subscribe((res: any) => {
-                this.cartProducts = [...res];
-                console.log("Displaying the cart products");
-                console.log(this.cartProducts);
-                console.log(event._elementRef.nativeElement.innerText);
-
-                if (event._elementRef.nativeElement.innerText === 'GO TO CART') {
-                    this.router.navigate(['/cart'])
-                } else if (event._elementRef.nativeElement.innerText === 'ADD TO CART') {
+        if (event._elementRef.nativeElement.innerText === 'GO TO CART') {
+            this.router.navigate(['/cart'])
+        } else if (event._elementRef.nativeElement.innerText === 'ADD TO CART') {
+            this.cartService.addProductToCart(productDetails).subscribe(res => {
+                console.log("Product added to cart susccessfully");
+                this.cartService.getAllCartProducts(this.user.customerUuid).subscribe((res: any) => {
+                    this.cartProducts = [...res];
+                    console.log("Displaying the cart products");
+                    console.log(this.cartProducts);
+                    console.log(event._elementRef.nativeElement.innerText);
                     this.renderer.setProperty(event._elementRef.nativeElement, 'innerText', 'GO TO CART');
                     this._snackBar.open("Product Added To Cart !", "Done", {
-                        duration: 2000,
+                        duration: 4000,
                         verticalPosition: "top", // Allowed values are  'top' | 'bottom'
                         horizontalPosition: "center" // Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
                     });
-                }
-
-                if (event._elementRef.nativeElement.innerText === 'BUY NOW') {
-                    this.router.navigate(['/cart'])
-                }
+                })
             })
-        })
+        }
+
+        if (event._elementRef.nativeElement.innerText === 'BUY NOW') {
+            this.router.navigate(['/cart'])
+        }
+
+        /*         this.cartService.addProductToCart(productDetails).subscribe(res => {
+                    console.log("Product added to cart susccessfully");
+                    this.cartService.getAllCartProducts(this.user.customerUuid).subscribe((res: any) => {
+                        this.cartProducts = [...res];
+                        console.log("Displaying the cart products");
+                        console.log(this.cartProducts);
+                        console.log(event._elementRef.nativeElement.innerText);
+        
+                        if (event._elementRef.nativeElement.innerText === 'GO TO CART') {
+                            this.router.navigate(['/cart'])
+                        } else if (event._elementRef.nativeElement.innerText === 'ADD TO CART') {
+                            this.renderer.setProperty(event._elementRef.nativeElement, 'innerText', 'GO TO CART');
+                            this._snackBar.open("Product Added To Cart !", "Done", {
+                                duration: 2000,
+                                verticalPosition: "top", // Allowed values are  'top' | 'bottom'
+                                horizontalPosition: "center" // Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
+                            });
+                        }
+        
+                        if (event._elementRef.nativeElement.innerText === 'BUY NOW') {
+                            this.router.navigate(['/cart'])
+                        }
+                    })
+                }) */
     }
 
     getProductCartStatus(product: any) {
