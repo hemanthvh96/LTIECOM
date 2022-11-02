@@ -49,6 +49,7 @@ export class ProductsComponent implements OnInit {
     pageSize: any = 5;
     length: any = this.products.length;
     currentSort: string = 'low';
+    showSnackbar = true;
 
     constructor(private productsService: ProductsService, private wishlistService: WishlistService, private router: Router, private renderer: Renderer2, private dialog: MatDialog, private cd: ChangeDetectorRef, private cartService: CartService, private _snackBar: MatSnackBar) { }
 
@@ -485,7 +486,6 @@ export class ProductsComponent implements OnInit {
 
     onAddToCartProduct(product: any, event: any) {
         console.log(event._elementRef);
-        this._snackBar.open('Product Added To Cart !')
         const productDetails = {
             productname: product.name,
             description: product.description,
@@ -508,7 +508,11 @@ export class ProductsComponent implements OnInit {
                     this.router.navigate(['/cart'])
                 } else if (event._elementRef.nativeElement.innerText === 'ADD TO CART') {
                     this.renderer.setProperty(event._elementRef.nativeElement, 'innerText', 'GO TO CART');
-                    this._snackBar.open('Product Added To Cart !')
+                    this._snackBar.open("Product Added To Cart !", "Done", {
+                        duration: 2000,
+                        verticalPosition: "top", // Allowed values are  'top' | 'bottom'
+                        horizontalPosition: "center" // Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
+                    });
                 }
 
                 if (event._elementRef.nativeElement.innerText === 'BUY NOW') {
