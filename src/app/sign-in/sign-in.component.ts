@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class SignInComponent implements OnInit {
   userName: any;
   password: any;
+  hide = true;
   @Output() selectedIndex = new EventEmitter<string>();
 
   constructor(private router: Router, private authService: AuthService) { }
