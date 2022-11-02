@@ -65,7 +65,7 @@ export class ProductsComponent implements OnInit {
         }
         this.productsService.getRealProducts().subscribe(res => {
             this.products = res;
-            this.products = [...this.products.sort((product1: any, product2: any) => product1.price - product2.price)];
+            //this.products = [...this.products.sort((product1: any, product2: any) => product1.price - product2.price)];
             this.allProducts = res;
             this.categories = [...new Set(this.products.map((product: any) => product.category))];
             this.paginationProducts = this.products.slice(0, 5);
@@ -496,35 +496,41 @@ export class ProductsComponent implements OnInit {
             customer_uuid: this.user.customerUuid
         }
 
-        this.cartService.addProductToCart(productDetails).subscribe(res => {
-            console.log("Product added to cart susccessfully");
-            this.cartService.getAllCartProducts(this.user.customerUuid).subscribe((res: any) => {
-                this.cartProducts = [...res];
-                console.log("Displaying the cart products");
-                console.log(this.cartProducts);
-                console.log(event._elementRef.nativeElement.innerText);
-
-                if (event._elementRef.nativeElement.innerText === 'GO TO CART') {
-                    this.router.navigate(['/cart'])
-                } else if (event._elementRef.nativeElement.innerText === 'ADD TO CART') {
+        if (event._elementRef.nativeElement.innerText === 'GO TO CART') {
+            this.router.navigate(['/cart'])
+        } else if (event._elementRef.nativeElement.innerText === 'ADD TO CART') {
+            this.cartService.addProductToCart(productDetails).subscribe(res => {
+                console.log("Product added to cart susccessfully");
+                this.cartService.getAllCartProducts(this.user.customerUuid).subscribe((res: any) => {
+                    this.cartProducts = [...res];
+                    console.log("Displaying the cart products");
+                    console.log(this.cartProducts);
+                    console.log(event._elementRef.nativeElement.innerText);
                     this.renderer.setProperty(event._elementRef.nativeElement, 'innerText', 'GO TO CART');
                     this._snackBar.open("Product Added To Cart !", "Done", {
-                        duration: 2000,
+                        duration: 4000,
                         verticalPosition: "top", // Allowed values are  'top' | 'bottom'
                         horizontalPosition: "center" // Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
                     });
-                }
-
-                if (event._elementRef.nativeElement.innerText === 'BUY NOW') {
-                    this.router.navigate(['/cart'])
-                }
+                })
             })
-        })
+        }
+
+        if (event._elementRef.nativeElement.innerText === 'BUY NOW') {
+            const isProductInCartIndex = this.cartProducts.findIndex((prod: any) => prod.productname === product.name);
+            if (isProductInCartIndex > -1) {
+                console.log("BuyNow Navigation Without Adding The Product")
+                this.router.navigate(['/cart'])
+            } else {
+                console.log("BuyNow Navigation By Adding The Product")
+                this.cartService.addProductToCart(productDetails).subscribe(res => {
+                    this.router.navigate(['/cart'])
+                })
+            }
+        }
     }
 
     getProductCartStatus(product: any) {
-        console.log("checking cart status");
-        //console.log(product)
         let isProductInCart = false;
         this.cartProducts.forEach((prod: any) => {
             if (prod.productname === product.name) {
@@ -532,5 +538,13 @@ export class ProductsComponent implements OnInit {
             }
         })
         return isProductInCart ? 'GO TO CART' : 'ADD TO CART'
+    }
+
+    formatLabel(value: number) {
+        if (value >= 1000) {
+            return Math.round(value / 1000) + 'k';
+        }
+
+        return value;
     }
 }
