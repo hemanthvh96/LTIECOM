@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { WishlistService } from 'src/app/services/wishlist.service';
 
 @Component({
   selector: 'app-edit-dialog',
@@ -9,11 +10,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class EditDialogComponent implements OnInit {
   wishlistName: any;
 
-  constructor(private dialogRef: MatDialogRef<EditDialogComponent>, 
-             @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(private dialogRef: MatDialogRef<EditDialogComponent>,
+              private wishlistService: WishlistService,
+              @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
-    console.log(this.data)
+    this.wishlistName = this.data.name.name;
   }
 
   close(){
@@ -21,7 +23,16 @@ export class EditDialogComponent implements OnInit {
   }
 
   save(){
-    console.log('save');
+    let user = { ...JSON.parse(localStorage.getItem('user') as string) };
+    let request = {
+      'name' : this.wishlistName,
+      'uuid' : this.data.name.uuid,
+      'customer_uuid' : user.customerUuid
+    }
+    this.wishlistService.updateWishlist(request).subscribe(res => {
+       this.dialogRef.close(res);
+    })
+    // this.dialogRef.close();
   }
 
 }

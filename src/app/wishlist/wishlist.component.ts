@@ -1,19 +1,12 @@
-import { HttpParams } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { WishlistService } from '../services/wishlist.service';
 import { AddDialogComponent } from './add-dialog/add-dialog.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
-
-// export interface WishlistData {
-//   id: string;
-//   name: string;
-//   progress: string;
-//   fruit: string;
-// }
 
 @Component({
   selector: 'app-wishlist',
@@ -21,42 +14,48 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
   styleUrls: ['./wishlist.component.css']
 })
 export class WishlistComponent implements OnInit {
-  //@ViewChild('paginator') paginator!: MatPaginator;
-  //@ViewChild(MatPaginator) private paginator: MatPaginator; 
+  @ViewChild('paginator') paginator: MatPaginator;
+ //@ViewChild(MatPaginator) paginator: MatPaginator; 
+  //wishListProducts : any = [];
+  wishListProducts = new MatTableDataSource<any>;
+ // dataSource =  new MatTableDataSource(this.wishListProducts);
+ dataSource : any = [];
   selectedList: any;
   listDetails: any;
+  
   wishlists: any[] = [];
   wishlistNames: any[] = [];
-  // wishlists = [
-  //   {value: '1', viewValue: 'First'},
-  //   {value: '2', viewValue: 'Second'},
-  //   {value: '3', viewValue: 'Third'},
-  // ];
+  //dataSource = new MatTableDataSource<>;
   displayedColumns: string[] = ['image', 'name', 'price', 'details','action'];
-  dataSource = [
-       {name: 'P1', price: 100, details: 'abc'},
-       {name: 'P2', price: 200, details: 'pqr'},
-       {name: 'P3', price: 300, details: 'xyz'}
-     ];
+  //dataSource: any[] = [];
 
-  constructor(public dialog: MatDialog, private wishlistService: WishlistService) { }
+  constructor(public dialog: MatDialog, private wishlistService: WishlistService,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
      this.getAllWishList();
   }
 
   ngAfterViewInit(): void {
-    //this.dataSource.paginator = this.paginator;  // <-- STEP (4)
+    this.wishListProducts = new MatTableDataSource();
+  // this.dataSource.paginator = this.paginator;  // <-- STEP (4)
+   this.wishListProducts.paginator = this.paginator;
+   //this.dataSource.push(this.paginator);
 }
 
   openDeleteDialog(){
+    let params = this.listDetails.uuid;
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '500px',
-      data: '',
+      data: params,
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if(result){
+        this.selectedList = '';
+        this.getAllWishList();
+        this.openSnackbar('Wishlist deleted successfully','Close');
+      }
     });
   }
 
@@ -72,7 +71,14 @@ export class WishlistComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+     // this.wishlistNames = [];
+      if(result){
+        this.selectedList = '';
+        this.getAllWishList();
+        //this.selectedList = result.name;
+        this.openSnackbar('Wishlist updated successfully','Close');
+      }
+      //this.listDetails = result;
     });
   }
 
@@ -83,59 +89,75 @@ export class WishlistComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if(result){
+        this.selectedList = ''; 
+        this.getAllWishList();
+        this.openSnackbar('Wishlist added successfully','Close');
+      }
     });
   }
 
   getAllWishList(){
-    let params = '5e86726f-56b2-11ed-b473-112c4e60a292';
+    //let params = '5e86726f-56b2-11ed-b473-112c4e60a292';
+    let user = { ...JSON.parse(localStorage.getItem('user') as string) };
+    let params = user.customerUuid;
     this.wishlistService.getAllWishlists(params).subscribe(res => {
-      console.log(res)
-      console.log(this.wishlists);
       this.wishlistNames = [];
       this.wishlists = [];
       this.wishlists = Object.values(res);
       this.wishlists.forEach(element => {
-        console.log(element)
         this.wishlistNames.push(element.name);
-        console.log(this.wishlists)
       });
-     
     })
+
   }
 
   valueChanged(){
-    console.log(this.selectedList);
     if(this.selectedList){
       this.getAllWishListProducts(this.selectedList);
     }
   }
 
   getAllWishListProducts(listSelected : any){
-    this.dataSource = [];
+    //this.dataSource = [];
     this.listDetails = listSelected;
     this.dataSource = listSelected.wishlistProduct;
-    console.log(this.dataSource)
-    // this.wishlistService.getAllWishlistProducts().subscribe(res => {
-    //   console.log(res)
-      // console.log(this.wishlists);
-      // this.wishlists = [];
-      // var WishlistName = Object.values(res);
-      // WishlistName.forEach(element => {
-      //   console.log(element)
-      //   this.wishlists.push(element.name);
-      //   console.log(this.wishlists)
-      // });
-     
+    //this.selectedList = listSelected.name
+    this.wishListProducts = new MatTableDataSource(listSelected.wishlistProduct)
+    this.wishListProducts.paginator = this.paginator;
+    //this.wishListProducts = listSelected.wishlistProduct;
+    //this.dataSource = new MatTableDataSource(this.wishListProducts)
+    this.dataSource.paginator = this.paginator;
+    //this.dataSource = this.wishListProducts;
+    //this.selectedList = listSelected.name;
   }
 
   removeProduct(index : any){
-    console.log(index);
     let params = index.uuid;
     this.wishlistService.removeProductFromWishlist(params).subscribe(res => {
-      console.log(res);
-      console.log(this.selectedList)
-      this.getAllWishListProducts(this.selectedList)
+      this.getWishListProductByList(this.selectedList)
+    })
+  }
+
+  getWishListProductByList(listSelected: any){
+    let params = listSelected.uuid;
+    this.wishlistService.getWishlistProductsByListId(params).subscribe(res => {
+      let data = Object.values(res);
+      this.dataSource = data[3];
+      this.wishListProducts = new MatTableDataSource(this.dataSource);
+      this.wishListProducts.paginator = this.paginator;
+    })
+  }
+
+  openSnackbar(message:string, action:string) {
+    //let username = this.user.firstName
+   // let msg = 'Hi ' + username + ', Your order has been placed successfully!'; 
+    let snackBarRef = this.snackBar.open(message, action, {duration: 1000} );
+    //this.cartItems = [];
+    //this.emptyCart();
+    snackBarRef.afterDismissed().subscribe(() => {
+    });
+    snackBarRef.onAction().subscribe(() => {
     })
   }
 

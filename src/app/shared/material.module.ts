@@ -15,6 +15,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
+
 @NgModule({
     declarations: [],
     exports: [MatToolbarModule, MatButtonModule, MatInputModule, MatIconModule, MatTabsModule,
