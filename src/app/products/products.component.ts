@@ -13,6 +13,7 @@ import { User } from '../services/auth.service';
 import { MatIcon } from '@angular/material/icon';
 import { MatSelectChange } from '@angular/material/select';
 import { CartService } from '../services/cart.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-products',
@@ -49,7 +50,7 @@ export class ProductsComponent implements OnInit {
     length: any = this.products.length;
     currentSort: string = 'low';
 
-    constructor(private productsService: ProductsService, private wishlistService: WishlistService, private router: Router, private renderer: Renderer2, private dialog: MatDialog, private cd: ChangeDetectorRef, private cartService: CartService) { }
+    constructor(private productsService: ProductsService, private wishlistService: WishlistService, private router: Router, private renderer: Renderer2, private dialog: MatDialog, private cd: ChangeDetectorRef, private cartService: CartService, private _snackBar: MatSnackBar) { }
 
     @ViewChildren('catg') catg!: QueryList<any>;
     @ViewChildren(MatMenuTrigger) wishlistMenuTrigger!: QueryList<MatMenuTrigger>;
@@ -78,7 +79,8 @@ export class ProductsComponent implements OnInit {
 
         this.cartService.getAllCartProducts(this.user.customerUuid).subscribe((res: any) => {
             console.log('Fetching cart items');
-            console.log(res);
+            this.cartProducts = [...res];
+            console.log(this.cartProducts)
         })
 
 
@@ -483,6 +485,7 @@ export class ProductsComponent implements OnInit {
 
     onAddToCartProduct(product: any, event: any) {
         console.log(event._elementRef);
+        this._snackBar.open('Product Added To Cart !')
         const productDetails = {
             productname: product.name,
             description: product.description,
@@ -499,12 +502,13 @@ export class ProductsComponent implements OnInit {
                 this.cartProducts = [...res];
                 console.log("Displaying the cart products");
                 console.log(this.cartProducts);
-                if (event._elementRef.nativeElement.innerText === 'ADD TO CART') {
-                    this.renderer.setProperty(event._elementRef.nativeElement, 'innerText', 'GO TO CART')
-                }
+                console.log(event._elementRef.nativeElement.innerText);
 
                 if (event._elementRef.nativeElement.innerText === 'GO TO CART') {
                     this.router.navigate(['/cart'])
+                } else if (event._elementRef.nativeElement.innerText === 'ADD TO CART') {
+                    this.renderer.setProperty(event._elementRef.nativeElement, 'innerText', 'GO TO CART');
+                    this._snackBar.open('Product Added To Cart !')
                 }
 
                 if (event._elementRef.nativeElement.innerText === 'BUY NOW') {
@@ -512,5 +516,17 @@ export class ProductsComponent implements OnInit {
                 }
             })
         })
+    }
+
+    getProductCartStatus(product: any) {
+        console.log("checking cart status");
+        //console.log(product)
+        let isProductInCart = false;
+        this.cartProducts.forEach((prod: any) => {
+            if (prod.productname === product.name) {
+                isProductInCart = true;
+            }
+        })
+        return isProductInCart ? 'GO TO CART' : 'ADD TO CART'
     }
 }

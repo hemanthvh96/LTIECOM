@@ -78,7 +78,7 @@
                     </div>
                     <div>
                         <button mat-button class="cart" #cart id="cartButton" disabled="false"
-                            (click)="onAddToCartProduct(product, cart)">ADD TO CART</button>
+                            (click)="onAddToCartProduct(product, cart)">{{getProductCartStatus(product)}}</button>
                         <button mat-button class="buy-now" id="buyButton" #buyNow
                             (click)="onAddToCartProduct(product, buyNow)">BUY NOW</button>
                     </div>
