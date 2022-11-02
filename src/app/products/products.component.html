@@ -34,9 +34,9 @@
         <div class="sort-products" *ngIf="!!products.length">
             <mat-form-field appearance="outline">
                 <mat-label>Sort Price</mat-label>
-                <mat-select>
-                    <mat-option [value]="'high'">High to Low</mat-option>
-                    <mat-option [value]="'low'">Low to High</mat-option>
+                <mat-select (selectionChange)="onPriceSortChange($event)">
+                    <mat-option value="high">High to Low</mat-option>
+                    <mat-option value="low">Low to High</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
@@ -65,17 +65,23 @@
                     <!-- <mat-icon fontIcon="favorite"></mat-icon> -->
                 </div>
                 <div class="product-detail">
-                    <h2>{{product.name}}</h2>
-                    <div class="price-wrapper">
-                        <p class="price">&#x20b9; {{product.price}}</p>
-                        <span
-                            [ngClass]="product.rating > 4 ? 'rating rating-high': 'rating rating-low'">{{product.rating}}
-                            &#9733;
-                        </span>
+                    <div>
+                        <h2>{{product.name}}</h2>
+                        <div class="price-wrapper">
+                            <p class="price">&#x20b9; {{product.price}}</p>
+                            <span
+                                [ngClass]="product.rating > 4 ? 'rating rating-high': 'rating rating-low'">{{product.rating}}
+                                &#9733;
+                            </span>
+                        </div>
+                        <p>{{product.description}}</p>
                     </div>
-                    <p>{{product.description}}</p>
-                    <button mat-button class="cart">Add To Cart</button>
-                    <button mat-button class="buy-now">Buy Now</button>
+                    <div>
+                        <button mat-button class="cart" #cart id="cartButton" disabled="false"
+                            (click)="onAddToCartProduct(product, cart)">{{getProductCartStatus(product)}}</button>
+                        <button mat-button class="buy-now" id="buyButton" #buyNow
+                            (click)="onAddToCartProduct(product, buyNow)">BUY NOW</button>
+                    </div>
                 </div>
             </div>
         </ng-container>
@@ -84,7 +90,7 @@
         </ng-container>
         <div>
             <mat-paginator [length]="products.length" [pageSize]="5" [pageSizeOptions]="[5,10]"
-                (page)="onPageChange($event)">
+                (page)="onPageChange($event)" [pageIndex]="pageIndex">
             </mat-paginator>
         </div>
     </div>

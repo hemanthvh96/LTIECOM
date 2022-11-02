@@ -12,16 +12,20 @@ export class CartService {
     return this.http.get('http://localhost:8080/cartitem/findbycustomeruuid/' + encodeURIComponent(params));
   }
 
-  deleteProductFromCart(params: any){
+  deleteProductFromCart(params: any) {
     return this.http.delete('http://localhost:8080/cartitem/delete/' + encodeURIComponent(params),{responseType: 'text'});
   }
 
-  deleteAllProductsFromCart(params: any){
+  deleteAllProductsFromCart(params: any) {
     return this.http.delete('http://localhost:8080/cartitem/deleteallbycustomeruuid/' + encodeURIComponent(params));
   }
 
   updateCartProduct(request: any) {
     return this.http.put('http://localhost:8080/cartitem/update', request)
+  }
+
+  addProductToCart(product: any) {
+    return this.http.post('http://localhost:8080/cartitem/add', product);
   }
 
 }
