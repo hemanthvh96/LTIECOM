@@ -27,29 +27,33 @@
     /* padding-left: 11%; */
 }
 
-.page-header{
+.page-header {
     margin-top: 10px;
     text-align: center;
     font-size: 20px;
     color: transparent;
-    font-weight: 600;
+    font-weight: 500;
+    background-clip: text;
     -webkit-background-clip: text;
     background-image: linear-gradient(to right, #ff5275, #2361dc) !important;
+    padding-top: 1rem;
+    margin-right: 50px;
 }
 
-button {   
-     background-color: #2f2fe1;   
-     /* width: 10%;   */
-     color: white;   
-     /* padding: 15px;    */
-     height: 36px;
-     /* margin: 0px 11px;    */
-     border: none;   
-     cursor: pointer;   
-     margin-right: 85px;
-}   
+button {
+    /* background-color: #2f2fe1; */
+    background-color: #2361dc;
+    /* width: 10%;   */
+    color: white;
+    /* padding: 15px;    */
+    height: 36px;
+    /* margin: 0px 11px;    */
+    border: none;
+    cursor: pointer;
+    margin-right: 85px;
+}
 
-.fav-icon{
+.fav-icon {
     background-color: white !important;
     margin: 0 0 0 0 !important;
     padding: 0 0 0 0 !important;
@@ -60,22 +64,24 @@ table {
     /* margin-top: 35px; */
 }
 
-.table-header{
+.table-header {
     /* //background-color: #912fe1; */
     color: #fff;
     background-image: linear-gradient(to right, #ff5275, #2361dc) !important;
 }
 
-.table-row{
+.table-row {
     height: 61px;
 }
 
 .header {
     margin-top: 10px;
     margin-bottom: 0px;
+    font-size: 18px;
+    font-weight: 400;
 }
 
-.image { 
+.image {
     /* width: 45px;
     height: 45px; */
     width: 100px;
@@ -85,12 +91,12 @@ table {
     padding-bottom: 1rem;
 }
 
-.dropdown{
+.dropdown {
     width: 25%;
     margin-right: 515px;
 }
 
-.paginator{
+.paginator {
     margin-right: 78px;
     background: none !important;
 }
@@ -102,11 +108,11 @@ table {
     font-weight: bold;
 }
 
-.detailsHeader{
+.detailsHeader {
     text-align: center;
 }
 
-.imageHeader{
+.imageHeader {
     padding-left: 56px !important;
 }
 
@@ -128,3 +134,7 @@ table {
  :mat-select-value{
     margin-bottom: 17px;
 } */
+
+::ng-deep .wishlist-dropdown-wrapper .mat-select-value {
+    margin-bottom: 17px;
+}
