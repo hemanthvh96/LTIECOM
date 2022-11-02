@@ -1,6 +1,21 @@
-.center{
+/* .center{
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+}
+ */
+
+.tab-body {
+    width: 60%;
+}
+
+::ng-deep .mat-tab-body-wrapper .mat-tab-body-content {
+    width: 400px;
+    margin: 0px auto;
+}
+
+::ng-deep .mat-tab-body-wrapper .mat-tab-body-content {
+    width: 450px;
+    margin: 0px auto;
 }
