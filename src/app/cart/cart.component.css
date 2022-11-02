@@ -1,7 +1,7 @@
 .cart-wrapper {
     /* position: absolute;
     left: 10%; */
-    margin-left: 30px;
+    margin-left: 13px;
     top: 15%;
     width: 100%;
 }
@@ -16,7 +16,7 @@
     display: flex !important;
     float: left;
     height: 100%;
-    width: 65%;
+    width: 97%;
     margin-left: 50px;
 }
 
@@ -24,7 +24,7 @@
     display: flex !important;
     float: left;
     height: 100%;
-    width: 30%;
+    width: 20%;
     margin-top: 10px;
 }
 
@@ -35,22 +35,33 @@
 }
 
 .buttons {
-   margin-top: 50px;
+   margin-top: 20px;
 }
 
 .shop-button {
-    margin-right: 100px;
-    margin-left: 153px;
+    margin-right: 50px;
+    /* margin-left: 153px; */
 }
 
 table {
     width: 95%;
-    margin-top: 35px;
+    /* margin-top: 35px; */
 }
 
 .header{
     text-align: center;
+    font-size: 20px;
     margin-top: 20px;
+    color: transparent;
+    font-weight: 600;
+    -webkit-background-clip: text;
+    background-image: linear-gradient(to right, #ff5275, #2361dc) !important;
+}
+
+.table-header{
+    /* background-color: #912fe1; */
+    color: #fff;
+    background-image: linear-gradient(to right, #ff5275, #2361dc) !important;
 }
 
 .text-center{
@@ -108,15 +119,36 @@ table {
 
 .checkButton{
     height: 40px;
-    margin-top: 40%;
-    margin-right: 36%;
+    float: right;
+    /* //margin-top: 40%; */
+    margin-right: 63px;
     background-color: green;
 }
 
 .totalAmount{
     font-weight: bold;
-    margin-top: 50px;
+    margin-bottom: 0px;
 }
+
+.paginator{
+    margin-right: 37px;
+}
+
+.mat-column-quantity{
+   width: 90px !important;
+}
+
+.mat-column-price{
+    width: 80px;
+}
+
+.mat-header-cell {
+    color: #fff;
+}
+
+/* .total{
+    width: ;
+} */
 
 .counter{
     width: 40px;

@@ -1,7 +1,7 @@
-import { HttpParams } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { WishlistService } from '../services/wishlist.service';
 import { AddDialogComponent } from './add-dialog/add-dialog.component';
@@ -14,10 +14,12 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
   styleUrls: ['./wishlist.component.css']
 })
 export class WishlistComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('paginator') paginator: MatPaginator;
  //@ViewChild(MatPaginator) paginator: MatPaginator; 
-  wishListProducts : any[] = [];
-  dataSource =  new MatTableDataSource(this.wishListProducts);
+  //wishListProducts : any = [];
+  wishListProducts = new MatTableDataSource<any>;
+ // dataSource =  new MatTableDataSource(this.wishListProducts);
+ dataSource : any = [];
   selectedList: any;
   listDetails: any;
   
@@ -27,14 +29,17 @@ export class WishlistComponent implements OnInit {
   displayedColumns: string[] = ['image', 'name', 'price', 'details','action'];
   //dataSource: any[] = [];
 
-  constructor(public dialog: MatDialog, private wishlistService: WishlistService) { }
+  constructor(public dialog: MatDialog, private wishlistService: WishlistService,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
      this.getAllWishList();
   }
 
   ngAfterViewInit(): void {
-   this.dataSource.paginator = this.paginator;  // <-- STEP (4)
+    this.wishListProducts = new MatTableDataSource();
+  // this.dataSource.paginator = this.paginator;  // <-- STEP (4)
+   this.wishListProducts.paginator = this.paginator;
    //this.dataSource.push(this.paginator);
 }
 
@@ -49,8 +54,8 @@ export class WishlistComponent implements OnInit {
       if(result){
         this.selectedList = '';
         this.getAllWishList();
+        this.openSnackbar('Wishlist deleted successfully','Close');
       }
-      console.log('The dialog was closed');
     });
   }
 
@@ -71,9 +76,8 @@ export class WishlistComponent implements OnInit {
         this.selectedList = '';
         this.getAllWishList();
         //this.selectedList = result.name;
-        
+        this.openSnackbar('Wishlist updated successfully','Close');
       }
-      console.log(this.selectedList)
       //this.listDetails = result;
     });
   }
@@ -85,8 +89,11 @@ export class WishlistComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result)
+      if(result){
+        this.selectedList = ''; 
         this.getAllWishList();
+        this.openSnackbar('Wishlist added successfully','Close');
+      }
     });
   }
 
@@ -94,23 +101,18 @@ export class WishlistComponent implements OnInit {
     //let params = '5e86726f-56b2-11ed-b473-112c4e60a292';
     let user = { ...JSON.parse(localStorage.getItem('user') as string) };
     let params = user.customerUuid;
-    //console.log(user.customerUuid)
     this.wishlistService.getAllWishlists(params).subscribe(res => {
-      console.log(res)
       this.wishlistNames = [];
       this.wishlists = [];
       this.wishlists = Object.values(res);
       this.wishlists.forEach(element => {
         this.wishlistNames.push(element.name);
       });
-      console.log(this.wishlistNames)    
     })
 
   }
 
   valueChanged(){
-    console.log(this.selectedList);
-    console.log('inside chnage')
     if(this.selectedList){
       this.getAllWishListProducts(this.selectedList);
     }
@@ -119,22 +121,20 @@ export class WishlistComponent implements OnInit {
   getAllWishListProducts(listSelected : any){
     //this.dataSource = [];
     this.listDetails = listSelected;
-    //this.dataSource = listSelected.wishlistProduct;
+    this.dataSource = listSelected.wishlistProduct;
     //this.selectedList = listSelected.name
-    this.wishListProducts = listSelected.wishlistProduct;
-    this.dataSource = new MatTableDataSource(this.wishListProducts)
+    this.wishListProducts = new MatTableDataSource(listSelected.wishlistProduct)
+    this.wishListProducts.paginator = this.paginator;
+    //this.wishListProducts = listSelected.wishlistProduct;
+    //this.dataSource = new MatTableDataSource(this.wishListProducts)
     this.dataSource.paginator = this.paginator;
     //this.dataSource = this.wishListProducts;
     //this.selectedList = listSelected.name;
-    console.log(this.dataSource)
   }
 
   removeProduct(index : any){
-    console.log(index);
     let params = index.uuid;
     this.wishlistService.removeProductFromWishlist(params).subscribe(res => {
-      console.log(res);
-      console.log(this.selectedList)
       this.getWishListProductByList(this.selectedList)
     })
   }
@@ -143,7 +143,21 @@ export class WishlistComponent implements OnInit {
     let params = listSelected.uuid;
     this.wishlistService.getWishlistProductsByListId(params).subscribe(res => {
       let data = Object.values(res);
-      this.wishListProducts = data[3];
+      this.dataSource = data[3];
+      this.wishListProducts = new MatTableDataSource(this.dataSource);
+      this.wishListProducts.paginator = this.paginator;
+    })
+  }
+
+  openSnackbar(message:string, action:string) {
+    //let username = this.user.firstName
+   // let msg = 'Hi ' + username + ', Your order has been placed successfully!'; 
+    let snackBarRef = this.snackBar.open(message, action, {duration: 1000} );
+    //this.cartItems = [];
+    //this.emptyCart();
+    snackBarRef.afterDismissed().subscribe(() => {
+    });
+    snackBarRef.onAction().subscribe(() => {
     })
   }
 

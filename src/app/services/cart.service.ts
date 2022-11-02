@@ -20,4 +20,8 @@ export class CartService {
     return this.http.delete('http://localhost:8080/cartitem/deleteallbycustomeruuid/' + encodeURIComponent(params));
   }
 
+  updateCartProduct(request: any) {
+    return this.http.put('http://localhost:8080/cartitem/update', request)
+  }
+
 }

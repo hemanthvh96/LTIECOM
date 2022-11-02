@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CartService } from '../services/cart.service';
 import { MatSnackBar } from '@angular/material/snack-bar'; 
 import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-cart',
@@ -10,9 +11,10 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  dataSource : any[] = [];
+  @ViewChild('paginator') paginator: MatPaginator;
+  dataSource = new MatTableDataSource<any>;
   cartItems : any[] = [];
+  user;
   // dataSource = [
   //   {name: 'P1', details: 'abc', quantity: 2, price: 100},
   //   {name: 'P2', details: 'pqr', quantity: 4, price: 300},
@@ -28,49 +30,65 @@ export class CartComponent implements OnInit {
               private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.user = { ...JSON.parse(localStorage.getItem('user') as string) };
     this.getAllCartItems();
-    // this.calculateTotal();
+    this.calculateTotal();
   }
 
   calculateTotal(){
     this.total = 0;
-    this.dataSource.forEach(element => {
+    this.cartItems.forEach(element => {
       this.total = this.total + element.price * element.quantity;
     });
   }
 
+  quantityChange(element){
+    // this.total = 0;
+    // this.cartItems.forEach(element => {
+    //   this.total = this.total + element.price * element.quantity;
+    // });
+    let request = {
+      "productname": element.productname,
+      "description": element.description,
+      "quantity": element.quantity,
+      "price": element.price,
+      "totalprice": element.totalprice,
+      "uuid": element.uuid,
+      "category": element.category
+    }
+    this.cartService.updateCartProduct(request).subscribe(res => {
+      this.getAllCartItems();
+    })
+  }
+
   getAllCartItems(){
-    let user = { ...JSON.parse(localStorage.getItem('user') as string) };
-    let params = user.customerUuid;
-    this.dataSource = [];
+    let params = this.user.customerUuid;
+    //this.dataSource = [];
     this.cartItems = [];
     this.cartService.getAllCartProducts(params).subscribe(res => {
-      console.log(res)
       this.cartItems = Object.values(res);
-      this.cartItems.forEach(element => {
-        this.dataSource.push(element);
-      });
+      this.dataSource = new MatTableDataSource(this.cartItems);
+      this.dataSource.paginator = this.paginator;
       this.calculateTotal();
+      // this.cartItems.forEach(element => {
+      //   this.dataSource.push(element);
+      // });
+      
     });
   }
 
   deleteCartItem(index:any){
-     console.log(index)
-     console.log(this.cartItems)
      let params = index.uuid;
      this.cartService.deleteProductFromCart(params).subscribe(res => {
-      console.log(res);
       this.getAllCartItems();
      })
   }
 
   emptyCart(){
-    let user = { ...JSON.parse(localStorage.getItem('user') as string) };
-    let params = user.customerUuid;
+    let params = this.user.customerUuid;
     this.cartService.deleteAllProductsFromCart(params).subscribe(res => {
-      console.log(res);
       if(res)
-        this.dataSource = [];
+        this.cartItems = [];
     })
   }
 
@@ -79,13 +97,14 @@ export class CartComponent implements OnInit {
   }
 
   openSnackbar(message:string, action:string) {
-    let snackBarRef = this.snackBar.open(message, action);
-    this.dataSource = [];
+    let username = this.user.firstName
+    let msg = 'Hi ' + username + ', Your order has been placed successfully!'; 
+    let snackBarRef = this.snackBar.open(msg, action);
+    this.cartItems = [];
+    this.emptyCart();
     snackBarRef.afterDismissed().subscribe(() => {
-      //console.log("The snackbar is dismissed");
     });
     snackBarRef.onAction().subscribe(() => {
-      //console.log("The snackbar action was triggered!");
     })
   }
 

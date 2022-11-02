@@ -21,11 +21,9 @@ export class DeleteDialogComponent implements OnInit {
   }
 
   save(){
-    console.log('save');
     this.wishlistService.deleteWishlist(this.data).subscribe(res => {
-      console.log(res);
+      this.dialogRef.close(res);
     })
-    this.dialogRef.close();
   }
 
 }

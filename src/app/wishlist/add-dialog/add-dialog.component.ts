@@ -28,10 +28,8 @@ export class AddDialogComponent implements OnInit {
       'customer_uuid' : user.customerUuid
     }
     this.wishlistService.createNewWishlist(request).subscribe(res => {
-      console.log(res)
-    })
-    console.log('save');
-    this.dialogRef.close();
+      this.dialogRef.close(res);
+    }) 
   }
 
 }

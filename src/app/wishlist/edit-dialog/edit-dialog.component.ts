@@ -15,7 +15,6 @@ export class EditDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
-    console.log(this.data)
     this.wishlistName = this.data.name.name;
   }
 
@@ -24,7 +23,6 @@ export class EditDialogComponent implements OnInit {
   }
 
   save(){
-    console.log('save');
     let user = { ...JSON.parse(localStorage.getItem('user') as string) };
     let request = {
       'name' : this.wishlistName,
@@ -32,7 +30,6 @@ export class EditDialogComponent implements OnInit {
       'customer_uuid' : user.customerUuid
     }
     this.wishlistService.updateWishlist(request).subscribe(res => {
-       console.log(res);
        this.dialogRef.close(res);
     })
     // this.dialogRef.close();
