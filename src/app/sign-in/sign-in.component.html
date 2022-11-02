@@ -1,12 +1,13 @@
-<div class="container">  
- <form #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)" novalidate>
-   <h2 class="form-header">Login</h2>
+<div class="container">
+  <form #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)" novalidate class="signin-form">
+    <h2 class="form-header">Login</h2>
     <!-- <mat-error *ngIf="false">
       The username and password were not recognized
     </mat-error> -->
     <mat-form-field appearance="outline">
       <mat-label>Username</mat-label>
-      <input matInput type="text" name="username" [(ngModel)]="userName" autocomplete="off" #userNameCtrl="ngModel" required>
+      <input matInput type="text" name="username" [(ngModel)]="userName" autocomplete="off" #userNameCtrl="ngModel"
+        required>
       <mat-error *ngIf="!userNameCtrl.valid">
         Please provide a valid Username
       </mat-error>

@@ -1,3 +1,6 @@
+.signup-component {
+    padding: 25px;
+}
 
 .form-header {
     text-align: center;
@@ -8,11 +11,12 @@
 }
 
 .signup-form {
-    margin: 0 auto;
-    border: 1px solid #e3e3e3;
+    /* margin: 0 auto; */
+    /* border: 1px solid #e3e3e3; */
     padding: 2rem;
     background-color: rgb(252, 247, 247);
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 
 .mat-signup-form-field {
@@ -24,7 +28,7 @@
     margin-bottom: 1rem;
 }
 
-::ng-deep .mat-input-element {
+/* ::ng-deep .mat-input-element {
     font-size: 16px !important;
 }
 
@@ -34,7 +38,7 @@
 
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
     font-size: 16px !important;
-}
+} */
 
 .checkLogin {
     text-align: center;

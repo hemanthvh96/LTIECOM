@@ -11,6 +11,8 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { WishlistService } from '../services/wishlist.service';
 import { User } from '../services/auth.service';
 import { MatIcon } from '@angular/material/icon';
+import { MatSelectChange } from '@angular/material/select';
+import { CartService } from '../services/cart.service';
 
 @Component({
     selector: 'app-products',
@@ -26,6 +28,7 @@ export class ProductsComponent implements OnInit {
     products: any = [];
     //filteredProducts: any[] = []
     paginationProducts: any[] = [];
+    cartProducts: any[] = [];
     categories: any[] = [];
     ratingsArr: any[] = [
         { id: 'rating-4', rating: 4, checked: false },
@@ -41,11 +44,16 @@ export class ProductsComponent implements OnInit {
     showMenu: any = null;
     user!: User;
 
-    constructor(private productsService: ProductsService, private wishlistService: WishlistService, private router: Router, private renderer: Renderer2, private dialog: MatDialog, private cd: ChangeDetectorRef) { }
+    pageIndex: any = 0;
+    pageSize: any = 5;
+    length: any = this.products.length;
+    currentSort: string = 'low';
+
+    constructor(private productsService: ProductsService, private wishlistService: WishlistService, private router: Router, private renderer: Renderer2, private dialog: MatDialog, private cd: ChangeDetectorRef, private cartService: CartService) { }
 
     @ViewChildren('catg') catg!: QueryList<any>;
     @ViewChildren(MatMenuTrigger) wishlistMenuTrigger!: QueryList<MatMenuTrigger>;
-    @ViewChildren('wishlistMenuTrigger') wishlistMenuTrigger1!: QueryList<ElementRef<any>>;;
+    @ViewChildren('wishlistMenuTrigger') wishlistMenuTrigger1!: QueryList<ElementRef<any>>;
 
     ngOnInit() {
         if (!localStorage.getItem('Auth_Token')) {
@@ -55,9 +63,11 @@ export class ProductsComponent implements OnInit {
         }
         this.productsService.getRealProducts().subscribe(res => {
             this.products = res;
+            this.products = [...this.products.sort((product1: any, product2: any) => product1.price - product2.price)];
             this.allProducts = res;
             this.categories = [...new Set(this.products.map((product: any) => product.category))];
             this.paginationProducts = this.products.slice(0, 5);
+            //this.onPriceSortChange();
         });
 
         this.wishlistService.getAllWishlists(this.user.customerUuid).subscribe((res: any) => {
@@ -66,9 +76,14 @@ export class ProductsComponent implements OnInit {
             console.log(this.wishlists)
         })
 
+        this.cartService.getAllCartProducts(this.user.customerUuid).subscribe((res: any) => {
+            console.log('Fetching cart items');
+            console.log(res);
+        })
+
 
     }
-
+    /* Pagination Products Implemented */
     updateFilterPrice(event: any) {
         this.filterPrice = event.value;
         this.filters[1].price = event.value;
@@ -100,13 +115,21 @@ export class ProductsComponent implements OnInit {
         }
 
         this.products = [...ratingsfilteredProducts];
-
+        if (this.currentSort === 'high') {
+            this.products = [...this.products.sort((product1: any, product2: any) => product2.price - product1.price)]
+        }
+        if (this.currentSort === 'low') {
+            this.products = [...this.products.sort((product1: any, product2: any) => product1.price - product2.price)]
+        }
+        this.pageIndex = 0;
+        this.paginateProducts();
     }
 
     wishlistHandler(event: any) {
         console.log(event)
     }
 
+    /* Pagination Products Implemented */
     onRatingsFilterChange(event: MatCheckboxChange) {
         const checkBoxId = event.source.id;
         const isChecked = event.checked;
@@ -124,8 +147,10 @@ export class ProductsComponent implements OnInit {
             }
         }
 
-        if (!this.filters[0].ratingsArr.length && !this.filters[1].price && !this.filters[1].category) {
-            return this.products = [...this.allProducts];
+        if (!this.filters[0].ratingsArr.length && !this.filters[1].price && !this.filters[2].category) {
+            this.products = [...this.allProducts];
+            this.paginationProducts = [...this.products]
+            return this.paginateProducts();
         }
         let ratingsfilteredProducts: any[] = [];
         if (this.filters[0].ratingsArr.length) {
@@ -150,17 +175,37 @@ export class ProductsComponent implements OnInit {
 
             filteredProducts1 = this.filters[1].price ? ratingsfilteredProducts.filter((product: any) => product.price <= this.filters[1].price) : ratingsfilteredProducts;
             filteredProducts2 = this.filters[2].category ? filteredProducts1.filter((product: any) => product.category === this.filters[2].category) : filteredProducts1;
-            return this.products = [...filteredProducts2];
+            this.products = [...filteredProducts2];
+            //this.products = [...ratingsfilteredProducts];
+            if (this.currentSort === 'high') {
+                this.products = [...this.products.sort((product1: any, product2: any) => product2.price - product1.price)]
+            }
+            if (this.currentSort === 'low') {
+                this.products = [...this.products.sort((product1: any, product2: any) => product1.price - product2.price)]
+            }
+            this.pageIndex = 0;
+            return this.paginateProducts();
+            //this.paginationProducts = [...this.products]
         } else {
             let filteredProducts1: any[] = [];
             let filteredProducts2: any[] = [];
 
             filteredProducts1 = this.filters[1].price ? this.allProducts.filter((product: any) => product.price <= this.filters[1].price) : this.allProducts;
             filteredProducts2 = this.filters[2].category ? filteredProducts1.filter((product: any) => product.category === this.filters[2].category) : filteredProducts1;
-            return this.products = [...filteredProducts2];
+            this.products = [...filteredProducts2];
+            //this.paginationProducts = [...this.products];
+            if (this.currentSort === 'high') {
+                this.products = [...this.products.sort((product1: any, product2: any) => product2.price - product1.price)]
+            }
+            if (this.currentSort === 'low') {
+                this.products = [...this.products.sort((product1: any, product2: any) => product1.price - product2.price)]
+            }
+            this.pageIndex = 0;
+            return this.paginateProducts();
         }
     }
 
+    /* Pagination Products Implemented */
     onCategoryClick(idx: any, catg: MatAnchor) {
         const elRef = catg._elementRef;
         const catEls = Array.from(elRef.nativeElement.parentElement.children);
@@ -199,6 +244,15 @@ export class ProductsComponent implements OnInit {
         }
 
         this.products = [...ratingsfilteredProducts];
+        //this.paginationProducts = [...this.products]
+        if (this.currentSort === 'high') {
+            this.products = [...this.products.sort((product1: any, product2: any) => product2.price - product1.price)]
+        }
+        if (this.currentSort === 'low') {
+            this.products = [...this.products.sort((product1: any, product2: any) => product1.price - product2.price)]
+        }
+        this.pageIndex = 0;
+        return this.paginateProducts();
     }
 
     onFiltersReset() {
@@ -219,7 +273,16 @@ export class ProductsComponent implements OnInit {
             ratingObj.checked = false;
         })
 
-        this.products = [...this.allProducts]
+        this.products = [...this.allProducts];
+        //this.paginationProducts = this.products.slice(0, 5);
+        if (this.currentSort === 'high') {
+            this.products = [...this.products.sort((product1: any, product2: any) => product2.price - product1.price)]
+        }
+        if (this.currentSort === 'low') {
+            this.products = [...this.products.sort((product1: any, product2: any) => product1.price - product2.price)]
+        }
+        this.pageIndex = 0
+        return this.paginateProducts();
 
     }
 
@@ -385,12 +448,69 @@ export class ProductsComponent implements OnInit {
 
     onPageChange(event: PageEvent) {
         console.log(event);
-        const start = event.pageIndex * event.pageSize;
-        const end = start + event.pageSize;
+        this.pageIndex = event.pageIndex
+        this.pageSize = event.pageSize
+        this.length = event.length
+        this.paginateProducts();
+    }
+
+    paginateProducts() {
+        const start = this.pageIndex * this.pageSize;
+        const end = start + this.pageSize;
 
         const paginationProducts = this.products.slice(start, end);
         console.log(this.products)
         console.log(paginationProducts)
         this.paginationProducts = [...paginationProducts];
+        //this.onPriceSortChange();
+    }
+
+    onPriceSortChange(event?: MatSelectChange) {
+        let sortValue = event ? event.value : this.currentSort;
+        if (event) {
+            this.currentSort = event.value;
+        }
+        if (sortValue === 'high') {
+            this.products = [...this.products.sort((product1: any, product2: any) => product2.price - product1.price)]
+            this.paginateProducts()
+        }
+
+        if (sortValue === 'low') {
+            this.products = [...this.products.sort((product1: any, product2: any) => product1.price - product2.price)];
+            this.paginateProducts()
+        }
+    }
+
+    onAddToCartProduct(product: any, event: any) {
+        console.log(event._elementRef);
+        const productDetails = {
+            productname: product.name,
+            description: product.description,
+            quantity: 1,
+            price: product.price,
+            totalprice: product.price,
+            category: product.category,
+            customer_uuid: this.user.customerUuid
+        }
+
+        this.cartService.addProductToCart(productDetails).subscribe(res => {
+            console.log("Product added to cart susccessfully");
+            this.cartService.getAllCartProducts(this.user.customerUuid).subscribe((res: any) => {
+                this.cartProducts = [...res];
+                console.log("Displaying the cart products");
+                console.log(this.cartProducts);
+                if (event._elementRef.nativeElement.innerText === 'ADD TO CART') {
+                    this.renderer.setProperty(event._elementRef.nativeElement, 'innerText', 'GO TO CART')
+                }
+
+                if (event._elementRef.nativeElement.innerText === 'GO TO CART') {
+                    this.router.navigate(['/cart'])
+                }
+
+                if (event._elementRef.nativeElement.innerText === 'BUY NOW') {
+                    this.router.navigate(['/cart'])
+                }
+            })
+        })
     }
 }
