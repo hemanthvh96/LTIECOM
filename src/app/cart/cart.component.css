@@ -40,6 +40,7 @@
 
 .shop-button {
     margin-right: 50px;
+    background-color: #2361dc;
     /* margin-left: 153px; */
 }
 
@@ -53,7 +54,8 @@ table {
     font-size: 20px;
     margin-top: 20px;
     color: transparent;
-    font-weight: 600;
+    font-weight: 500;
+    background-clip: text;
     -webkit-background-clip: text;
     background-image: linear-gradient(to right, #ff5275, #2361dc) !important;
 }
