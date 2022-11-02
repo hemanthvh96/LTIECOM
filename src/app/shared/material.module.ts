@@ -14,15 +14,13 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @NgModule({
     declarations: [],
-    exports: [MatToolbarModule, MatButtonModule, MatInputModule, MatIconModule, MatTabsModule, 
-             MatFormFieldModule, MatSelectModule, MatTableModule, MatDialogModule, MatCardModule,
-             MatPaginatorModule, MatCheckboxModule, MatSliderModule, MatMenuModule, MatSnackBarModule, MatSnackBar]
-
+    exports: [MatToolbarModule, MatButtonModule, MatInputModule, MatIconModule, MatTabsModule,
+        MatFormFieldModule, MatSelectModule, MatTableModule, MatDialogModule, MatCardModule,
+        MatPaginatorModule, MatCheckboxModule, MatSliderModule, MatMenuModule, MatSnackBarModule]
 })
 
 export class MaterialModule {
