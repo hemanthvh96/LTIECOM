@@ -145,6 +145,7 @@ export class WishlistComponent implements OnInit {
   }
 
   getWishListProductByList(listSelected: any) {
+    this.listDetails = listSelected;
     let params = listSelected.uuid;
     this.wishlistService.getWishlistProductsByListId(params).subscribe(res => {
       let data = Object.values(res);
