@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService, User } from '../services/auth.service';
 
@@ -12,7 +13,7 @@ import { AuthService, User } from '../services/auth.service';
 export class SignupComponent implements OnInit {
 
     @Output() selectedIndex = new EventEmitter<string>();
-    constructor(private authService: AuthService, private router: Router) { }
+    constructor(private authService: AuthService, private router: Router, private _snackBar: MatSnackBar) { }
 
     hide = true;
     ngOnInit(): void {
@@ -33,7 +34,13 @@ export class SignupComponent implements OnInit {
             console.log(res);
             console.log("User created successfully")
             if (res) signupForm.resetForm();
-            this.router.navigate(['/login'])
+            this._snackBar.open("User Registered Successfully !", "Done", {
+                duration: 4000,
+                verticalPosition: "top", // Allowed values are  'top' | 'bottom'
+                horizontalPosition: "center" // Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
+            });
+            let value = '0'
+            this.selectedIndex.emit(value);
         })
     }
 

@@ -8,14 +8,18 @@ import { Component, OnInit } from '@angular/core';
 export class LoginComponent implements OnInit {
   selectedIndex: any;
 
-  constructor() {  }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
 
-  selectIndex(selectedIndex: any){
-     this.selectedIndex = selectedIndex;
+  selectIndex(selectedIndex: any) {
+    this.selectedIndex = selectedIndex;
+  }
+
+  onIndexChange(event: any) {
+    this.selectedIndex = event;
   }
 
 }
