@@ -21,8 +21,8 @@
         Please provide a valid password
       </mat-error>
     </mat-form-field>
-    <mat-error *ngIf="incorrectData">
-      The username and password were not recognized
+    <mat-error *ngIf="incorrectData" class="invalidMessage">
+      Invalid credentials. Try again.
     </mat-error>
     <div class="submit">
       <button type="submit" mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Login</button>

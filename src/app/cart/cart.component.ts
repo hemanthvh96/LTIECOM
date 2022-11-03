@@ -85,7 +85,7 @@ export class CartComponent implements OnInit {
     let params = index.uuid;
     this.cartService.deleteProductFromCart(params).subscribe(res => {
       this.getAllCartItems();
-      this.openDeleteSnackbar('Product deleted successfully', 'Close')
+      this.openDeleteSnackbar('Product deleted successfully!', 'Close')
     })
   }
 
