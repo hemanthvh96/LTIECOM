@@ -58,7 +58,7 @@ export class WishlistComponent implements OnInit {
       if (result) {
         this.selectedList = '';
         this.getAllWishList();
-        this.openSnackbar('Wishlist deleted successfully', 'Close');
+        this.openSnackbar('Wishlist deleted successfully!', 'Close');
       }
     });
   }
@@ -80,7 +80,7 @@ export class WishlistComponent implements OnInit {
         this.selectedList = '';
         this.getAllWishList();
         //this.selectedList = result.name;
-        this.openSnackbar('Wishlist updated successfully', 'Close');
+        this.openSnackbar('Wishlist updated successfully!', 'Close');
       }
       //this.listDetails = result;
     });
@@ -96,7 +96,7 @@ export class WishlistComponent implements OnInit {
       if (result) {
         this.selectedList = '';
         this.getAllWishList();
-        this.openSnackbar('Wishlist added successfully', 'Close');
+        this.openSnackbar('Wishlist added successfully!', 'Close');
       }
     });
   }
@@ -118,7 +118,7 @@ export class WishlistComponent implements OnInit {
 
   valueChanged() {
     if (this.selectedList) {
-      this.getAllWishListProducts(this.selectedList);
+      this.getWishListProductByList(this.selectedList);
     }
   }
 
@@ -140,7 +140,7 @@ export class WishlistComponent implements OnInit {
     let params = index.uuid;
     this.wishlistService.removeProductFromWishlist(params).subscribe(res => {
       this.getWishListProductByList(this.selectedList)
-      this.openSnackbar('Product deleted successfully', 'Close')
+      this.openSnackbar('Product deleted successfully!', 'Close')
     })
   }
 
