@@ -140,6 +140,7 @@ export class WishlistComponent implements OnInit {
     let params = index.uuid;
     this.wishlistService.removeProductFromWishlist(params).subscribe(res => {
       this.getWishListProductByList(this.selectedList)
+      this.openSnackbar('Product deleted successfully', 'Close')
     })
   }
 
@@ -156,7 +157,7 @@ export class WishlistComponent implements OnInit {
   openSnackbar(message: string, action: string) {
     //let username = this.user.firstName
     // let msg = 'Hi ' + username + ', Your order has been placed successfully!'; 
-    let snackBarRef = this.snackBar.open(message, action, { duration: 1000 });
+    let snackBarRef = this.snackBar.open(message, action, { duration: 4000 });
     //this.cartItems = [];
     //this.emptyCart();
     snackBarRef.afterDismissed().subscribe(() => {

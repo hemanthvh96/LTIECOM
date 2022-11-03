@@ -13,6 +13,7 @@ export class SignInComponent implements OnInit {
   password: any;
   hide = true;
   @Output() selectedIndex = new EventEmitter<string>();
+  incorrectData: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) { }
 
@@ -22,9 +23,13 @@ export class SignInComponent implements OnInit {
   loginUser(loginForm: NgForm) {
     const loginDetails = { username: loginForm.controls['username'].value, password: loginForm.controls['password'].value };
 
-    this.authService.signinUser(loginDetails.username, loginDetails.password).subscribe(res => {
+    this.authService.signinUser(loginDetails.username, loginDetails.password).toPromise().then(res => {
       loginForm.resetForm();
       this.router.navigate(['/products']);
+    }).catch(e => {
+      if(e.error){
+         this.incorrectData = true;
+      }
     })
   }
   

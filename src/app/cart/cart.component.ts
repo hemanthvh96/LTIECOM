@@ -85,6 +85,7 @@ export class CartComponent implements OnInit {
     let params = index.uuid;
     this.cartService.deleteProductFromCart(params).subscribe(res => {
       this.getAllCartItems();
+      this.openDeleteSnackbar('Product deleted successfully', 'Close')
     })
   }
 
@@ -100,10 +101,19 @@ export class CartComponent implements OnInit {
     this.router.navigate(['/products']);
   }
 
+  openDeleteSnackbar(message: string, action: string) {
+    let snackBarRef = this.snackBar.open(message, action, { duration: 4000 });
+    snackBarRef.afterDismissed().subscribe(() => {
+    });
+    snackBarRef.onAction().subscribe(() => {
+    })
+  }
+
+
   openSnackbar(message: string, action: string) {
     let username = this.user.firstName
     let msg = 'Hi ' + username + ', Your order has been placed successfully!';
-    let snackBarRef = this.snackBar.open(msg, action);
+    let snackBarRef = this.snackBar.open(msg, action, { duration: 4000 });
     this.cartItems = [];
     this.emptyCart();
     snackBarRef.afterDismissed().subscribe(() => {
