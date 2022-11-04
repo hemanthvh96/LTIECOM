@@ -4,7 +4,6 @@
     <div class="wishlist-dropdown-wrapper">
       <h2 class="header">Select Wishlist</h2>
       <mat-form-field class="dropdown" appearance="fill">
-        <!-- <mat-label>Select Wishlist</mat-label> -->
         <mat-select class="dropdown-select" [(ngModel)]="selectedList" (ngModelChange)="valueChanged()">
           <mat-option *ngFor="let wishlist of wishlists" [value]="wishlist">
             {{wishlist.name}}
@@ -46,7 +45,6 @@
           <button mat-icon-button class="fav-icon" color="warn" (click)="removeProduct(index)">
             <mat-icon>delete</mat-icon>
           </button>
-          <!-- <button mat-icon-button class="fav-icon" color="warn"><mat-icon>favorite_border</mat-icon></button> -->
         </td>
       </ng-container>
 
@@ -54,15 +52,6 @@
       <tr mat-row class="table-row" *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-    <!-- <mat-paginator #paginator [pageSize]="2" [pageSizeOptions]="[2, 5, 10, 25, 100]">
-</mat-paginator> -->
-    <!-- <mat-paginator [length]="10" #paginator
-              [pageSize]="3"
-              [pageSizeOptions]="[3, 5, 10, 25, 100]"
-              aria-label="Select page">
-</mat-paginator> -->
-    <!-- </div> -->
-    <!-- <div [hidden]="!selectedList || !dataSource.length"> -->
     <mat-paginator class="paginator" [length]="dataSource.length" #paginator
       [hidden]="!selectedList || !dataSource.length" [pageSize]="3" [pageSizeOptions]="[3, 5, 10, 25, 100]"
       aria-label="Select page">

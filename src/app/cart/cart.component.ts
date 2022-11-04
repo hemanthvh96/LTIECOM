@@ -15,13 +15,6 @@ export class CartComponent implements OnInit {
   dataSource = new MatTableDataSource<any>;
   cartItems: any[] = [];
   user;
-  // dataSource = [
-  //   {name: 'P1', details: 'abc', quantity: 2, price: 100},
-  //   {name: 'P2', details: 'pqr', quantity: 4, price: 300},
-  //   {name: 'P2', details: 'pqr', quantity: 4, price: 300},
-  //   {name: 'P2', details: 'pqr', quantity: 4, price: 300},
-  //   {name: 'P3', details: 'xyz', quantity: 1, price: 600}
-  // ];
   displayedColumns: string[] = ['name', 'details', 'quantity', 'price', 'total', 'action'];
   total: any;
   counter: number = 1;
@@ -46,10 +39,6 @@ export class CartComponent implements OnInit {
   }
 
   quantityChange(element) {
-    // this.total = 0;
-    // this.cartItems.forEach(element => {
-    //   this.total = this.total + element.price * element.quantity;
-    // });
     let request = {
       "productname": element.productname,
       "description": element.description,
@@ -66,7 +55,6 @@ export class CartComponent implements OnInit {
 
   getAllCartItems() {
     let params = this.user.customerUuid;
-    //this.dataSource = [];
     this.cartItems = [];
     this.cartService.getAllCartProducts(params).subscribe(res => {
       this.cartItems = Object.values(res);
@@ -74,10 +62,6 @@ export class CartComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.cartItems);
       this.dataSource.paginator = this.paginator;
       this.calculateTotal();
-      // this.cartItems.forEach(element => {
-      //   this.dataSource.push(element);
-      // });
-
     });
   }
 
