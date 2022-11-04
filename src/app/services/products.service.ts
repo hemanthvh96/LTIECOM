@@ -36,7 +36,6 @@ export class ProductsService {
     }
 
     getRealProducts() {
-        //const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhc3NpZ25tZW50IiwiaWF0IjoxNjY2OTM1MzUyLCJleHAiOjE2NjcwMjE3NTJ9.obHwE6GI_C8cmMEkVt0uyhD6XUaNEsseIb4coRf8fwrI404IOvaJGjTYtzxXYIOWkBeKh0I4Hpv9FQlShA0ZMg')
         return this.http.get('http://localhost:8080/products/findall')
     }
 }

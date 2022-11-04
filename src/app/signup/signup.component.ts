@@ -36,8 +36,8 @@ export class SignupComponent implements OnInit {
             if (res) signupForm.resetForm();
             this._snackBar.open("User Registered Successfully !", "Done", {
                 duration: 4000,
-                verticalPosition: "top", // Allowed values are  'top' | 'bottom'
-                horizontalPosition: "center" // Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
+                verticalPosition: "top", 
+                horizontalPosition: "center" 
             });
             let value = '0'
             this.selectedIndex.emit(value);

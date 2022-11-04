@@ -32,7 +32,6 @@ export class EditDialogComponent implements OnInit {
     this.wishlistService.updateWishlist(request).subscribe(res => {
        this.dialogRef.close(res);
     })
-    // this.dialogRef.close();
   }
 
 }

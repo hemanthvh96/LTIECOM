@@ -16,19 +16,14 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 })
 export class WishlistComponent implements OnInit {
   @ViewChild('paginator') paginator: MatPaginator;
-  //@ViewChild(MatPaginator) paginator: MatPaginator; 
-  //wishListProducts : any = [];
   wishListProducts = new MatTableDataSource<any>;
-  // dataSource =  new MatTableDataSource(this.wishListProducts);
   dataSource: any = [];
   selectedList: any;
   listDetails: any;
 
   wishlists: any[] = [];
   wishlistNames: any[] = [];
-  //dataSource = new MatTableDataSource<>;
   displayedColumns: string[] = ['image', 'name', 'price', 'details', 'action'];
-  //dataSource: any[] = [];
 
   constructor(public dialog: MatDialog, private wishlistService: WishlistService,
     private snackBar: MatSnackBar, private router: Router) { }
@@ -42,9 +37,7 @@ export class WishlistComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.wishListProducts = new MatTableDataSource();
-    // this.dataSource.paginator = this.paginator;  // <-- STEP (4)
     this.wishListProducts.paginator = this.paginator;
-    //this.dataSource.push(this.paginator);
   }
 
   openDeleteDialog() {
@@ -75,14 +68,11 @@ export class WishlistComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // this.wishlistNames = [];
       if (result) {
         this.selectedList = '';
         this.getAllWishList();
-        //this.selectedList = result.name;
         this.openSnackbar('Wishlist updated successfully!', 'Close');
       }
-      //this.listDetails = result;
     });
   }
 
@@ -102,7 +92,6 @@ export class WishlistComponent implements OnInit {
   }
 
   getAllWishList() {
-    //let params = '5e86726f-56b2-11ed-b473-112c4e60a292';
     let user = { ...JSON.parse(localStorage.getItem('user') as string) };
     let params = user.customerUuid;
     this.wishlistService.getAllWishlists(params).subscribe(res => {
@@ -123,17 +112,11 @@ export class WishlistComponent implements OnInit {
   }
 
   getAllWishListProducts(listSelected: any) {
-    //this.dataSource = [];
     this.listDetails = listSelected;
     this.dataSource = listSelected.wishlistProduct;
-    //this.selectedList = listSelected.name
     this.wishListProducts = new MatTableDataSource(listSelected.wishlistProduct)
     this.wishListProducts.paginator = this.paginator;
-    //this.wishListProducts = listSelected.wishlistProduct;
-    //this.dataSource = new MatTableDataSource(this.wishListProducts)
     this.dataSource.paginator = this.paginator;
-    //this.dataSource = this.wishListProducts;
-    //this.selectedList = listSelected.name;
   }
 
   removeProduct(index: any) {
@@ -156,11 +139,7 @@ export class WishlistComponent implements OnInit {
   }
 
   openSnackbar(message: string, action: string) {
-    //let username = this.user.firstName
-    // let msg = 'Hi ' + username + ', Your order has been placed successfully!'; 
     let snackBarRef = this.snackBar.open(message, action, { duration: 4000 });
-    //this.cartItems = [];
-    //this.emptyCart();
     snackBarRef.afterDismissed().subscribe(() => {
     });
     snackBarRef.onAction().subscribe(() => {

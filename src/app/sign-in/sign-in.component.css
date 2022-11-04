@@ -1,6 +1,5 @@
 .container {
     padding: 25px;
-    /* background-color: rgb(252, 247, 247); */
 }
 
 .form-header {
@@ -21,15 +20,10 @@
     text-align: center;
 }
 
-/*  mat-form-field {
-    display: block;
- } */
-
 .signin-form {
     display: flex;
     flex-direction: column;
     background-color: rgb(252, 247, 247);
-    /* box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px; */
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
     padding: 2rem;
 }

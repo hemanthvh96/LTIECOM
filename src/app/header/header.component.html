@@ -3,14 +3,6 @@
         <img src="https://www.lntinfotech.com/wp-content/uploads/2021/09/LTI-logo.svg" class="header-logo">
         <div class="flex-spacer"></div>
         <ng-container *ngIf="isUserLoggedIn">
-            <!-- <button mat-button [matMenuTriggerFor]="menu" class="profile">{{user.firstName}}
-                <mat-icon fontIcon="keyboard_arrow_down"></mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" class="profile-menu">
-                <button mat-menu-item class="logout">My Profile</button>
-                <button mat-menu-item class="logout" (click)="onLogout()">Logout</button>
-            </mat-menu> -->
-
             <a mat-button routerLink="/products" routerLinkActive="active-link">
                 <mat-icon fontIcon="home"></mat-icon>
                 <p class="header-title">Home</p>
